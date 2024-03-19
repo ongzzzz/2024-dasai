@@ -12,9 +12,12 @@ public class QuizDto {
     public static class QuizRequestDto {
         private Language language;
 
+        private String selectorType;
+
         @Builder
-        public QuizRequestDto(Language language) {
+        public QuizRequestDto(Language language, String selectorType) {
             this.language = language;
+            this.selectorType = selectorType;
         }
     }
 

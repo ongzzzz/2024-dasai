@@ -21,6 +21,7 @@ public class QuizController {
     public ResponseEntity<List<QuizDto.QuizResponseDto>> getQuizzes(@PathVariable String language) {
         QuizDto.QuizRequestDto quizRequestDto = QuizDto.QuizRequestDto.builder()
                 .language(Language.fromString(language))
+                .selectorType("random")
                 .build();
 
         return ResponseEntity.ok(quizService.getQuizzes(quizRequestDto));
