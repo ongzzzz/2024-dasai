@@ -4,6 +4,8 @@ import com.example.xiyouji.type.Language;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.List;
+
 public class QuizDto {
 
     @Data
@@ -20,12 +22,12 @@ public class QuizDto {
     public static class QuizResponseDto {
         private String quizContent;
 
-        private String characterType;
+        private List<String> characterType;
 
         private Object result;
 
         @Builder
-        public QuizResponseDto(String quizContent, String characterType, Object result) {
+        public QuizResponseDto(String quizContent, List<String> characterType, Object result) {
             this.quizContent = quizContent;
             this.characterType = characterType;
             this.result = result;

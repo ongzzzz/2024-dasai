@@ -9,6 +9,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -16,7 +18,7 @@ public class ChoiceQuiz extends Quiz {
     private Integer answer;
 
     @Builder
-    public ChoiceQuiz(Long id, Characters characterType, String quizContent, Language language, Integer answer) {
+    public ChoiceQuiz(Long id, List<Characters> characterType, String quizContent, Language language, Integer answer) {
         super(id, characterType, quizContent, language);
         this.answer = answer;
     }
@@ -24,9 +26,12 @@ public class ChoiceQuiz extends Quiz {
     @Override
     public QuizDto.QuizResponseDto toQuizResponse() {
         return QuizDto.QuizResponseDto.builder()
-                .characterType(getCharacterType().getValue_kr())
+                .characterType(getCharacterType().stream()
+                        .map(Characters::getValue_kr)
+                        .toList())
                 .result(answer)
                 .quizContent(getQuizContent())
                 .build();
     }
+
 }
