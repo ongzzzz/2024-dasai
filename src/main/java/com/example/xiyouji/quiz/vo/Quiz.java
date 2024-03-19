@@ -2,7 +2,9 @@ package com.example.xiyouji.quiz.vo;
 
 
 
+import com.example.xiyouji.quiz.dto.QuizDto;
 import com.example.xiyouji.type.Characters;
+import com.example.xiyouji.type.Language;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -22,15 +24,17 @@ public abstract class Quiz {
     @Enumerated
     private Characters characterType;
 
-    private String content_kr;
+    private String quizContent;
 
-    private String content_cn;
+    private Language language;
 
 
-    public Quiz(Long id, Characters characterType, String content_kr, String content_cn) {
+    public Quiz(Long id, Characters characterType, String quizContent, Language language) {
         this.id = id;
         this.characterType = characterType;
-        this.content_kr = content_kr;
-        this.content_cn = content_cn;
+        this.quizContent = quizContent;
+        this.language = language;
     }
+
+    public abstract QuizDto.QuizResponseDto toQuizResponse();
 }
