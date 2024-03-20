@@ -1,16 +1,19 @@
 package com.example.xiyouji.type;
 
 public enum Language {
-    KR("kr", "KR"),
-    CN("cn","CN"),
+    KR("kr", "KR", "kor"),
+    CN("cn","CN", "cn"),
     ;
 
     private final String value;
     private final String value2;
 
-    Language(String value, String value2) {
+    private final String value_baidu;
+
+    Language(String value, String value2, String value_baidu) {
         this.value = value;
         this.value2 = value2;
+        this.value_baidu = value_baidu;
     }
 
     public String getValue_upper() {
@@ -19,6 +22,10 @@ public enum Language {
 
     public String getValue_low() {
         return value;
+    }
+
+    public String getValue_baidu() {
+        return value_baidu;
     }
 
     public static Language fromString(String value) {
