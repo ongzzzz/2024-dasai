@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
@@ -22,15 +23,13 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 class StoryServiceTest {
 
+    @MockBean
     private StoryRepository storyRepository;
 
+    @Autowired
     private StoryService storyService;
 
-    @BeforeEach
-    public void setUp() {
-        storyRepository = Mockito.mock(StoryRepository.class); // 모의 객체 생성
-        storyService = new StoryService(storyRepository); // 생성자를 통한 수동 주입
-    }
+
 
     @Test
     public void whenKRStoryExists_thenStoryShouldBeReturned() {
