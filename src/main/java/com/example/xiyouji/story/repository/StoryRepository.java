@@ -12,5 +12,6 @@ public interface StoryRepository extends JpaRepository<Story, Long> {
 
     Optional<Story> getStoryByStoryTitleAndLanguage(String storyTitle, Language language);
 
-    Optional<Story> getStoryByCharacters(Characters character);
+    Optional<Story> getStoryByCharactersAndLanguage(Characters character, Language language);
+
 }

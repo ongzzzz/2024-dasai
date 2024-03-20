@@ -23,11 +23,13 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 class StoryServiceTest {
 
+    @Autowired
+    private StoryService storyService;
+
     @MockBean
     private StoryRepository storyRepository;
 
-    @Autowired
-    private StoryService storyService;
+
 
 
 
@@ -109,11 +111,17 @@ class StoryServiceTest {
                 .language(Language.CN)
                 .storyContent("孙悟空内容")
                 .build();
-        when(storyRepository.getStoryByCharacters(Characters.손오공))
+        Story mockStory_kr = Story.builder()
+                .characters(Characters.손오공)
+                .language(Language.KR)
+                .storyContent("손오공 내용")
+                .build();
+        when(storyRepository.getStoryByCharactersAndLanguage(Characters.손오공, Language.CN))
                 .thenReturn(Optional.of(mockStory));
 
         // 실행
         StoryDto.StoryResponseDto responseDto = storyService.getCharacterStory(requestDto);
+
 
         // 검증
         assertEquals("孙悟空内容", responseDto.getStoryContent());
@@ -127,7 +135,7 @@ class StoryServiceTest {
                 .character(Characters.저팔계)
                 .build();
 
-        when(storyRepository.getStoryByCharacters(Characters.저팔계))
+        when(storyRepository.getStoryByCharactersAndLanguage(Characters.저팔계, Language.CN))
                 .thenReturn(Optional.empty());
 
         assertThrows(StoryNotExistException.class, () -> {
