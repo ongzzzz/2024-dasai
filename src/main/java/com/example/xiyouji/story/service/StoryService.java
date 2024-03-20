@@ -21,7 +21,7 @@ public class StoryService {
     }
 
     public StoryDto.StoryResponseDto getCharacterStory(StoryDto.StoryRequestDto storyRequestDto) {
-        Story story = storyRepository.getStoryByCharacters(storyRequestDto.getCharacter())
+        Story story = storyRepository.getStoryByCharactersAndLanguage(storyRequestDto.getCharacter(), storyRequestDto.getLanguage())
                 .orElseThrow(StoryNotExistException::new);
 
         return story.toStoryResponseDto();
