@@ -2,7 +2,9 @@ package com.example.xiyouji.translate;
 
 
 import com.example.xiyouji.type.Language;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.util.DigestUtils;
@@ -13,8 +15,9 @@ import java.util.Map;
 import java.util.Random;
 
 @Service
-public class BaiduTranslateService implements Translator {
-    @Value("${baidu.translate.appid}")
+@RequiredArgsConstructor
+public class BaiduTranslator implements Translator {
+    @Value(value = "${baidu.translate.appid}")
     private String appId;
 
     @Value("${baidu.translate.secret}")
