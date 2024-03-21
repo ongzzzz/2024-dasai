@@ -3,8 +3,10 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<title>Story</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="script.js"></script>
 </head>
 <body>
 	<div id="wrap">
@@ -17,11 +19,15 @@
 					<li><a href="#">퀴즈</a></li>
 				</ul>
 			</nav>
-			<div class="translate_btn">
-				<label class="switch">
+			<div class="translate">
+				<div class="chinese">中文</div>
+				<div class="translate_btn">
+					<label class="switch">
 					<input type="checkbox" name="">
 					<span class="slider"></span>
-				</label>
+					</label>
+				</div>
+				<div class="korean">한국어</div>
 			</div>
 		</div>
 		<div id="content">
@@ -30,17 +36,17 @@
 					<div class="map story">
 						<img src="suzy1.jpg">
 						<p>지도로 이야기</p>
-						<a href="#"><button class="btn">보러가기</button></a>
+						<a href="#"><button class="go_btn">보러가기</button></a>
 					</div>
 					<div class="timeline story">
 						<img src="suzy2.jpg">
 						<p>주요 흐름별 이야기</p>
-						<a href="#"><button class="btn">보러가기</button></a>
+						<a href="#"><button class="go_btn">보러가기</button></a>
 					</div>
 				</div>
 			</div>
-			<div class="go_btn">
-				<button class="btn">퀴즈</button>
+			<div class="btn">
+				<a href="#"><button class="quiz_btn">퀴즈</button></a>
 			</div>
 			
 		</div>
