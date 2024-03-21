@@ -30,7 +30,7 @@ public class BaiduTranslator implements Translator {
 
     private final JsonParser jsonParser;
 
-    public String translate(String query, Language from, Language to) throws JsonProcessingException {
+    public String translate(String query, Language from, Language to)  {
         RestTemplate restTemplate = new RestTemplate();
         Map<String, String> params = new HashMap<>();
         String salt = String.valueOf(new Random().nextInt());
@@ -43,6 +43,9 @@ public class BaiduTranslator implements Translator {
         params.put("salt", salt);
         params.put("sign", sign);
 
+
+        sleepThread();//Baidu API 의 API 응답 시간 제한이 있는 것 같음, 0초로 설정 시 최초 응답이후 NULL 반환 됨
+
         String baiduResponse = restTemplate.getForObject(TRANSLATE_URL + "?q={q}&from={from}&to={to}&appid={appid}&salt={salt}&sign={sign}",
                 String.class, params);
 
@@ -52,5 +55,13 @@ public class BaiduTranslator implements Translator {
     private String generateSign(String query, String salt) {
         String src = appId + query + salt + secretKey;
         return DigestUtils.md5DigestAsHex(src.getBytes(StandardCharsets.UTF_8)).toLowerCase();
+    }
+
+    private void sleepThread() {
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
