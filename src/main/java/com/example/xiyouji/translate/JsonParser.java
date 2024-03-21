@@ -8,19 +8,17 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class ParseJson {
+public class JsonParser {
 
-    private String jsonStr;
-
-    public ParseJson(String jsonStr) {
-        this.jsonStr = jsonStr;
-    }
-
-    public String parse() throws JsonProcessingException {
+    public String parse(String jsonStr)  {
         ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode rootNode = objectMapper.readTree(jsonStr);
+        JsonNode rootNode = null;
+        try {
+            rootNode = objectMapper.readTree(jsonStr);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Json parse exception");
+        }
 
-        // trans_result 배열에서 첫 번째 요소의 dst 값을 추출
         return rootNode.path("trans_result").get(0).path("dst").asText();
     }
 
