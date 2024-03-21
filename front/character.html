@@ -5,6 +5,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Character</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="script.js"></script>
 </head>
 <body>
 	<div id="wrap">
@@ -12,20 +14,24 @@
 			<nav>
 				<ul class="menu">
 					<li><a href="#"><img src="home.png">HOME</a></li>
-					<li><a href="#">등장인물</a></li>
-					<li><a href="#">내용</a></li>
-					<li><a href="#">퀴즈</a></li>
+					<li><a href="character.html">등장인물</a></li>
+					<li><a href="story.html">내용</a></li>
+					<li><a href="">퀴즈</a></li>
 				</ul>
 			</nav>
-			<div class="translate_btn">
-				<label class="switch">
+			<div class="translate">
+				<div class="chinese">中文</div>
+				<div class="translate_btn">
+					<label class="switch">
 					<input type="checkbox" name="">
 					<span class="slider"></span>
-				</label>
+					</label>
+				</div>
+				<div class="korean">한국어</div>
 			</div>
 		</div>
-		<div id="content">
-			<div id="content1">
+		<div class="content">
+			<div class="content1">
 				<div class="character_select">
 					<img src="SunWukong.png" alt="Top Character" class="character top">
 					<img src="SunWukong.png" alt="Left Character" class="character left">
@@ -33,8 +39,33 @@
 					<img src="SunWukong.png" alt="Bottom Character" class="character bottom">
 				</div>
 			</div>
-			<div class="go_btn">
-				<a href="#"><button class="btn">보러가기</button></a>
+			<div class="btn">
+				<a href="story.html"><button class="go_btn">보러가기</button></a>
+			</div>
+			<div id="popup">
+				<div id="character_introduce">
+					<div class="introduce one">
+						구름을 타고 날아다니고 72가지의 변신을 할 수 있는 능력
+					</div>
+					<div class="introduce two">
+						바닥에 맹독이 든 물고기를 낚았는데 그 물고기가 삼정법사에게 신서를 구해주는 고마운 산물이었음. 이에 삼장법사는 사오정을 구원해 글르 자신의 제자로 삼음
+					</div>
+					<div class="introduce three">
+						구름을 타고 날아다니고 72가지의 변신을 할 수 있는 능력
+					</div>
+					<div class="introduce four">
+						바닥에 맹독이 든 물고기를 낚았는데 그 물고기가 삼정법사에게 신서를 구해주는 고마운 산물이었음. 이에 삼장법사는 사오정을 구원해 글르 자신의 제자로 삼음
+					</div>
+					<div class="introduce five">
+						구름을 타고 날아다니고 72가지의 변신을 할 수 있는 능력
+					</div>
+					<div class="introduce six">
+						바닥에 맹독이 든 물고기를 낚았는데 그 물고기가 삼정법사에게 신서를 구해주는 고마운 산물이었음. 이에 삼장법사는 사오정을 구원해 글르 자신의 제자로 삼음
+					</div>
+				</div>
+				<div class="btn">
+					<button id="character_name_btn">손오공</button>
+				</div>
 			</div>
 		</div>
 	</div>
