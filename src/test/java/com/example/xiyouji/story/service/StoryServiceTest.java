@@ -1,16 +1,12 @@
 package com.example.xiyouji.story.service;
 
-import com.example.xiyouji.exception.StoryNotExistException;
 import com.example.xiyouji.story.dto.StoryDto;
 import com.example.xiyouji.story.repository.StoryRepository;
 import com.example.xiyouji.story.vo.Story;
 
 import com.example.xiyouji.type.Characters;
 import com.example.xiyouji.type.Language;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
