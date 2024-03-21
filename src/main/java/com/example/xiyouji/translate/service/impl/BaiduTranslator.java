@@ -1,11 +1,12 @@
-package com.example.xiyouji.translate;
+package com.example.xiyouji.translate.service.impl;
 
 
+import com.example.xiyouji.translate.JsonParser;
+import com.example.xiyouji.translate.service.Translator;
 import com.example.xiyouji.type.Language;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.util.DigestUtils;

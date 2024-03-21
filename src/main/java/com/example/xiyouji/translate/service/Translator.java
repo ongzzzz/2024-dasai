@@ -1,4 +1,4 @@
-package com.example.xiyouji.translate;
+package com.example.xiyouji.translate.service;
 
 import com.example.xiyouji.type.Language;
 import com.fasterxml.jackson.core.JsonProcessingException;
