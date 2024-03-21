@@ -98,12 +98,12 @@ input:checked + .slider:before {
   -ms-transform: translateX(26px);
   transform: translateX(26px);
 }
-#content{
+.content{
 	width: 100%;
 	position: relative;
 	padding: 20px 0;
 }
-#content1{
+.content1{
 	padding: 60px 0;
 	width: 100%;
 }
@@ -172,6 +172,7 @@ button{
 	z-index: 1;
 }
 .introduce{
+	position: absolute;
 	width: 300px;
 	text-align: center;
 	font-size: 20px;
@@ -185,43 +186,43 @@ button{
 	top: 10%;
 	left: 10%;
 	transform: translateY(-20%);
-/*	border: 1px solid blue; //위치 표시를 위해 임의로 설정*/
 }
 .two {
   position: absolute;
   top: 40%; 
   left: 1%; 
-  border: 1px solid red;
-  transform: translateY(-25%);
+  border: 1px solid red; /*임의로 설정*/
+  transform: translateY(-25%); 
 }
 .three{
 	position: absolute;
 	top: 70%;
 	left: 10%;
-	transform: translateY(-20%);
-	border: 1px solid yellow;
+	transform: translateY(0%);
+	border: 1px solid yellow; /*임의로 설정*/
 }
 .four{
 	position: absolute;
 	top: 10%;
 	right: 10%;
-	transform: translateY(-30%);
-	border: 1px solid green;
+	border: 1px solid green; /*임의로 설정*/
+	transform: translateY(-20%);
 }
 .five{
 	position: absolute;
 	top: 40%;
 	right: 1%;
+	border: 1px solid purple; /*임의로 설정*/
 	transform: translateY(-20%);
-	border: 1px solid purple;
 }
 .six{
 	position: absolute;
 	top: 70%;
 	right: 10%;
 	transform: translateY(-20%);
-	border: 1px solid black;
+	border: 1px solid black; /*임의로 설정*/
 }
+
 #character_name_btn{
 	position: absolute;
 	left: 50%;
@@ -264,6 +265,16 @@ button{
 .quiz_btn:hover{
 	background-color: #f86551;
 	color: #ffffff;
+}
+.timeline_content{
+	width: 900px;
+}
+.checkpoint{
+	border: 1px solid;
+}
+.checkpoint h2{
+	min-width: 100px;
+	border: 1px solid;
 }
 #footer{
 }
