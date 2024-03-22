@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-public class Rank extends BaseTime {
+public class Ranking extends BaseTime {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,7 +23,7 @@ public class Rank extends BaseTime {
     private Member member;
 
     @Builder
-    public Rank(int resultCount, Member member) {
+    public Ranking(int resultCount, Member member) {
         this.resultCount = resultCount;
         this.member = member;
     }
