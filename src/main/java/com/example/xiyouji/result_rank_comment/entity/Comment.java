@@ -18,13 +18,20 @@ public class Comment extends BaseTime {
     @Column(nullable = false)
     private String content;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
     @Builder
     public Comment(String content, Member member) {
         this.content = content;
+        addMember(member);
+    }
+    public void addMember(Member member){
+        if(this.member != null){
+            member.addComment(null);
+        }
         this.member = member;
+        member.addComment(this);
     }
 }
