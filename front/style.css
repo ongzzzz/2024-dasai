@@ -34,23 +34,10 @@ nav a:hover{
 	font-weight: bold;
 
 }
-.translate{
+.translate_btn{
 	float: right;
-	width: 250px;
-	height: 100px;
-	line-height: 100px;
-}
-.translate div{
-	float: left;
-	margin: 0 10px;
-	font-size: 180x;
-}
-.translate label{
 	margin-top: 35px;
-}
-.chinese{
-	font-weight: bold;
-	color: #f86551;
+	margin-right: 40px;
 }
 .switch{
 	position: relative;
@@ -98,57 +85,57 @@ input:checked + .slider:before {
   -ms-transform: translateX(26px);
   transform: translateX(26px);
 }
-.content{
+#content{
 	width: 100%;
-	position: relative;
-	padding: 20px 0;
 }
-.content1{
-	padding: 60px 0;
+#content1{
+	margin: 60px 0;
 	width: 100%;
 }
 .character_select {
   position: relative;
-  width: 650px;
-  height: 550px;
+  width: 750px;
+  height: 600px;
   margin: 0 auto;
+
 }
 .character{
   position: absolute;
-  width: 300px;
-  height: 300px;
+  width: 350px;
+  height: 350px;
 }
 .character:hover{
-	display: block;
-	z-index: 4;
+		display: block;
+	z-index: 2;
 	transform: scale(1.2);
 	justify-content: center;
 }
 .top {
   top: 0;
-  margin: 0 175px;
+  left: 50%;
+/*  transform: translateX(-50%);*/
+	border: 1px solid;
 }
 .left {
+  top: 50%;
   left: 0;
-  margin: 125px 0;
+  transform: translateY(-50%);
 }
 .right {
+  top: 50%;
   right: 0;
-  margin: 125px 0;
+  transform: translateY(-50%);
 }
 .bottom {
   bottom: 0;
-  margin: 0 175px;
+  left: 50%;
+  transform: translateX(-50%); 
 }
-.btn{
+.go_btn{
 	display: flex;
 	justify-content: center;
 	align-items: center;
-
-}
-.character.blurred {
-  /* 클릭되지 않은 다른 캐릭터에 적용되는 블러 스타일 */
-  filter: blur(4px);
+	margin: 20px 0;
 }
 button{
 	padding: 15px 50px;
@@ -156,78 +143,11 @@ button{
 	border-radius: 50px;
 	box-shadow: -6px -6px 5px rgba(228, 226, 226, 0.8), 6px 6px 10px rgba(0, 0, 0, 0.2);
 	border: 0px;
+}
+.btn{
 	font-size: 25px;
-	cursor: pointer;
 }
-.go_btn:hover{
-	background-color: #f86551;
-	color: #ffffff;
-}
-#popup{
-	position: absolute;
-	display: none;
-	width:  100%;
-	height: 100%;
-	top: 0;
-	z-index: 1;
-}
-.introduce{
-	position: absolute;
-	width: 300px;
-	text-align: center;
-	font-size: 20px;
-	padding: 20px;
-	background-color: #ffffff;
-	border-radius: 30px;
-	box-shadow: -6px -6px 5px rgba(228, 226, 226, 0.8), 6px 6px 10px rgba(0, 0, 0, 0.2);
-}
-.one{
-	position: absolute;
-	top: 10%;
-	left: 10%;
-	transform: translateY(-20%);
-}
-.two {
-  position: absolute;
-  top: 40%; 
-  left: 1%; 
-  border: 1px solid red; /*임의로 설정*/
-  transform: translateY(-25%); 
-}
-.three{
-	position: absolute;
-	top: 70%;
-	left: 10%;
-	transform: translateY(0%);
-	border: 1px solid yellow; /*임의로 설정*/
-}
-.four{
-	position: absolute;
-	top: 10%;
-	right: 10%;
-	border: 1px solid green; /*임의로 설정*/
-	transform: translateY(-20%);
-}
-.five{
-	position: absolute;
-	top: 40%;
-	right: 1%;
-	border: 1px solid purple; /*임의로 설정*/
-	transform: translateY(-20%);
-}
-.six{
-	position: absolute;
-	top: 70%;
-	right: 10%;
-	transform: translateY(-20%);
-	border: 1px solid black; /*임의로 설정*/
-}
-
-#character_name_btn{
-	position: absolute;
-	left: 50%;
-	bottom: 0;
-	transform: translate(-50%, 50%);
+.btn:hover{
 	background-color: #f86551;
 	color: #ffffff;
 }
@@ -258,23 +178,6 @@ button{
 	font-weight: bold;
 	text-align: center;
 	margin: 40px;
-}
-.quiz_btn{
-  margin-left: 1000px;
-}
-.quiz_btn:hover{
-	background-color: #f86551;
-	color: #ffffff;
-}
-.timeline_content{
-	width: 900px;
-}
-.checkpoint{
-	border: 1px solid;
-}
-.checkpoint h2{
-	min-width: 100px;
-	border: 1px solid;
 }
 #footer{
 }

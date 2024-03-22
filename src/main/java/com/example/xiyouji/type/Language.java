@@ -2,7 +2,7 @@ package com.example.xiyouji.type;
 
 public enum Language {
     KR("kr", "KR", "kor"),
-    CN("cn","CN", "cn"),
+    CN("cn","CN", "zh"),
     ;
 
     private final String value;

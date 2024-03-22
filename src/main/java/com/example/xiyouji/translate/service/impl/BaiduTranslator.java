@@ -1,10 +1,12 @@
-package com.example.xiyouji.translate;
+package com.example.xiyouji.translate.service.impl;
 
 
+import com.example.xiyouji.translate.JsonParser;
+import com.example.xiyouji.translate.service.Translator;
 import com.example.xiyouji.type.Language;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.util.DigestUtils;
@@ -17,15 +19,18 @@ import java.util.Random;
 @Service
 @RequiredArgsConstructor
 public class BaiduTranslator implements Translator {
+
+    private static final String TRANSLATE_URL = "https://api.fanyi.baidu.com/api/trans/vip/translate";
     @Value(value = "${baidu.translate.appid}")
     private String appId;
 
     @Value("${baidu.translate.secret}")
     private String secretKey;
 
-    private static final String TRANSLATE_URL = "https://api.fanyi.baidu.com/api/trans/vip/translate";
 
-    public String translate(String query, Language from, Language to) {
+    private final JsonParser jsonParser;
+
+    public String translate(String query, Language from, Language to) throws JsonProcessingException {
         RestTemplate restTemplate = new RestTemplate();
         Map<String, String> params = new HashMap<>();
         String salt = String.valueOf(new Random().nextInt());
@@ -38,8 +43,10 @@ public class BaiduTranslator implements Translator {
         params.put("salt", salt);
         params.put("sign", sign);
 
-        return restTemplate.getForObject(TRANSLATE_URL + "?q={q}&from={from}&to={to}&appid={appid}&salt={salt}&sign={sign}",
+        String baiduResponse = restTemplate.getForObject(TRANSLATE_URL + "?q={q}&from={from}&to={to}&appid={appid}&salt={salt}&sign={sign}",
                 String.class, params);
+
+        return jsonParser.parse(baiduResponse);
     }
 
     private String generateSign(String query, String salt) {

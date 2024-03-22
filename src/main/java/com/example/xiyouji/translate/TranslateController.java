@@ -1,9 +1,8 @@
 package com.example.xiyouji.translate;
 
-import com.example.xiyouji.type.Language;
+import com.example.xiyouji.translate.service.impl.BaiduTranslator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
