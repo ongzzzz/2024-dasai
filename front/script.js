@@ -1,17 +1,5 @@
 $(function(){ 
 
-  //번역 버튼 부분
-  $(".switch input[type='checkbox']").change(function() {
-    if($(this).is(":checked")) {
-      $(".korean").css({"color": "#f86551", "font-weight": "bold"});
-      $(".chinese").css({"color": "#000000", "font-weight": "normal"});
-    } else {
-      $(".chinese").css({"color": "#f86551", "font-weight": "bold"});
-      $(".korean").css({"color": "#000000", "font-weight": "normal"});
-    }
-  });
-
-
   //캐릭터 선택시
   $(".character").click(function(){
      $(".character").removeClass("clicked").css({"transform": "", "z-index": ""});
