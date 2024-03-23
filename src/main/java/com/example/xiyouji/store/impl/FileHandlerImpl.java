@@ -21,7 +21,6 @@ public class FileHandlerImpl implements FileHandler {
 
     private final UploadFileRepository uploadFileRepository;
 
-    private final MultipartFileCompression multipartFileCompression;
 
     String rootPath = System.getProperty("user.dir");
 
