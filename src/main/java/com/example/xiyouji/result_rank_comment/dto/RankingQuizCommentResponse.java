@@ -1,6 +1,5 @@
 package com.example.xiyouji.result_rank_comment.dto;
 
-import com.example.xiyouji.result_rank_comment.service.CommentsResponse;
 import org.springframework.data.domain.Page;
 
 import java.util.List;

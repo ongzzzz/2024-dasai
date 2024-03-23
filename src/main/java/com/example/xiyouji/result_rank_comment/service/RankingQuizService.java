@@ -1,9 +1,9 @@
 package com.example.xiyouji.result_rank_comment.service;
 
+import com.example.xiyouji.exception.RestApiException;
+import com.example.xiyouji.exception.impl.UserErrorCode;
 import com.example.xiyouji.login.entity.Member;
 import com.example.xiyouji.login.repository.MemberRepository;
-import com.example.xiyouji.result_rank_comment.constant.CustomException;
-import com.example.xiyouji.result_rank_comment.constant.ErrorCode;
 import com.example.xiyouji.result_rank_comment.dto.RankingDto;
 import com.example.xiyouji.result_rank_comment.dto.UserRankingResponse;
 import com.example.xiyouji.type.Characters;
@@ -40,7 +40,7 @@ public class RankingQuizService {
 
         // 회원 정보 검색
         Member member = memberRepository.findById(userId)
-                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+                .orElseThrow(() -> new RestApiException(UserErrorCode.USER_NOT_FOUND));
         RankingDto rankingDto = RankingDto.of(userId,charactersFormat.size(), member.getNickName(),maxCorrectCharacters);
 
         // 랭킹 정보를 레디스에 저장
@@ -48,7 +48,7 @@ public class RankingQuizService {
 
         Long userRank = zSetOperations.reverseRank(RANKING, rankingDto);
         if(userRank == null){
-            throw new CustomException(ErrorCode.USER_RANKING_NOT_FOUND);
+            throw new RestApiException(UserErrorCode.USER_RANKING_NOT_FOUND);
         }
 
         // 회원이 10위 안에 있다면 빈 값을 반환, 10위 밖에 있다면 회원 순위를 함께 dto에 담아서 반환
@@ -65,7 +65,6 @@ public class RankingQuizService {
 
 
     private List<Characters> findMaxCorrectCharacters(List<String> charactersFormat) {
-
         // 맞은 답이 한개도 없을 경우 빈 List를 반환
         if(charactersFormat.isEmpty()){
             return new ArrayList<>();

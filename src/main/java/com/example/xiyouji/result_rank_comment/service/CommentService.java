@@ -1,9 +1,10 @@
 package com.example.xiyouji.result_rank_comment.service;
 
+import com.example.xiyouji.exception.RestApiException;
+import com.example.xiyouji.exception.impl.UserErrorCode;
 import com.example.xiyouji.login.entity.Member;
 import com.example.xiyouji.login.repository.MemberRepository;
-import com.example.xiyouji.result_rank_comment.constant.CustomException;
-import com.example.xiyouji.result_rank_comment.constant.ErrorCode;
+import com.example.xiyouji.result_rank_comment.dto.CommentsResponse;
 import com.example.xiyouji.result_rank_comment.entity.Comment;
 import com.example.xiyouji.result_rank_comment.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
@@ -31,12 +32,15 @@ public class CommentService {
     public void saveComment(Long userId, String content){
 
         if(commentRepository.existsByMemberId(userId)){
-            throw new CustomException(ErrorCode.ALREADY_WROTE_COMMENT);
+            throw new RestApiException(UserErrorCode.ALREADY_WROTE_COMMENT);
         }
+
         Member member = memberRepository
                 .findById(userId)
-                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+                .orElseThrow(() -> new RestApiException(UserErrorCode.USER_NOT_FOUND));
         Comment comment = Comment.builder().content(content).member(member).build();
+
         commentRepository.save(comment);
     }
+
 }

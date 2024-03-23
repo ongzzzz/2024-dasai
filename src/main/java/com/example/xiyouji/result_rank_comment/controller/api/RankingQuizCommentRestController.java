@@ -2,7 +2,7 @@ package com.example.xiyouji.result_rank_comment.controller.api;
 
 import com.example.xiyouji.result_rank_comment.dto.*;
 import com.example.xiyouji.result_rank_comment.service.CommentService;
-import com.example.xiyouji.result_rank_comment.service.CommentsResponse;
+import com.example.xiyouji.result_rank_comment.dto.CommentsResponse;
 import com.example.xiyouji.result_rank_comment.service.RankingQuizService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

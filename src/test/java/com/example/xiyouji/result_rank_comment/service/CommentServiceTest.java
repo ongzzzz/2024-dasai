@@ -1,9 +1,10 @@
 package com.example.xiyouji.result_rank_comment.service;
 
+import com.example.xiyouji.exception.RestApiException;
+import com.example.xiyouji.exception.impl.UserErrorCode;
 import com.example.xiyouji.login.entity.Member;
 import com.example.xiyouji.login.repository.MemberRepository;
-import com.example.xiyouji.result_rank_comment.constant.CustomException;
-import com.example.xiyouji.result_rank_comment.constant.ErrorCode;
+import com.example.xiyouji.result_rank_comment.dto.CommentsResponse;
 import com.example.xiyouji.result_rank_comment.entity.Comment;
 import com.example.xiyouji.result_rank_comment.repository.CommentRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -20,7 +21,6 @@ import org.springframework.data.domain.Sort;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.catchRuntimeException;
@@ -83,13 +83,12 @@ class CommentServiceTest {
     void saveMemberFailureTest() throws Exception
     {
         //given
-        Member member = Member.builder().nickName("name").build();
         given(commentRepository.existsByMemberId(any())).willReturn(true);
         //when
-        CustomException exception =
-                (CustomException) catchRuntimeException(() -> commentService.saveComment(1L, "content"));
+        RestApiException exception =
+                (RestApiException) catchRuntimeException(() -> commentService.saveComment(1L, "content"));
         //then
-        assertThat(exception).hasMessage(ErrorCode.ALREADY_WROTE_COMMENT.getMessage());
+        assertThat(exception).hasMessage(UserErrorCode.ALREADY_WROTE_COMMENT.getMessage());
         then(commentRepository).should().existsByMemberId(any());
     }
 

@@ -1,13 +1,13 @@
-package com.example.xiyouji.result_rank_comment.constant;
+package com.example.xiyouji.exception.impl;
 
+import com.example.xiyouji.exception.ErrorCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 
 @Getter
 @RequiredArgsConstructor
-public enum ErrorCode {
-
+public enum UserErrorCode implements ErrorCode {
     OK(HttpStatus.OK, "success"),
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않은 회원입니다."),
     USER_RANKING_NOT_FOUND(HttpStatus.NOT_FOUND, "존재하지 않은 회원 랭킹입니다."),

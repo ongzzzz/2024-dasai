@@ -1,4 +1,4 @@
-package com.example.xiyouji.result_rank_comment.service;
+package com.example.xiyouji.result_rank_comment.dto;
 
 public record CommentsResponse(
         String nickName,
