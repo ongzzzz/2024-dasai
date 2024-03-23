@@ -5,6 +5,8 @@ import com.example.xiyouji.type.Language;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.List;
+
 public class StoryDto {
 
     @Data
@@ -26,10 +28,10 @@ public class StoryDto {
     @Data
     public static class StoryResponseDto {
 
-        private String storyContent;
+        private List<String> storyContent;
 
         @Builder
-        public StoryResponseDto(String storyContent) {
+        public StoryResponseDto(List<String> storyContent) {
             this.storyContent = storyContent;
         }
     }

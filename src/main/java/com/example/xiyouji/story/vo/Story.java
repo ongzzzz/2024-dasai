@@ -10,6 +10,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -24,18 +27,22 @@ public class Story {
 
     private String storyTitle;
 
-    private String storyContent;
+    @OneToMany(mappedBy = "story" , orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<Content> storyContent;
 
+    @Enumerated
     private Language language;
 
     public StoryDto.StoryResponseDto toStoryResponseDto() {
         return StoryDto.StoryResponseDto.builder()
-                .storyContent(storyContent)
+                .storyContent(storyContent.stream()
+                        .map(Content::getStoryStr)
+                        .toList())
                 .build();
     }
 
     @Builder
-    public Story(Long id, Characters characters, String storyTitle, String storyContent, Language language) {
+    public Story(Long id, Characters characters, String storyTitle, List<Content> storyContent, Language language) {
         this.id = id;
         this.characters = characters;
         this.storyTitle = storyTitle;
