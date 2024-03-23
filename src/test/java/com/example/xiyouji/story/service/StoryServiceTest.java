@@ -1,16 +1,13 @@
 package com.example.xiyouji.story.service;
 
-import com.example.xiyouji.exception.StoryNotExistException;
+import com.example.xiyouji.exception.RestApiException;
 import com.example.xiyouji.story.dto.StoryDto;
 import com.example.xiyouji.story.repository.StoryRepository;
 import com.example.xiyouji.story.vo.Story;
 
 import com.example.xiyouji.type.Characters;
 import com.example.xiyouji.type.Language;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -93,7 +90,7 @@ class StoryServiceTest {
                 .thenReturn(Optional.empty());
 
         // 실행 & 검증
-        assertThrows(StoryNotExistException.class, () -> {
+        assertThrows(RestApiException.class, () -> {
             storyService.getStory(requestDto);
         });
     }
@@ -138,7 +135,7 @@ class StoryServiceTest {
         when(storyRepository.getStoryByCharactersAndLanguage(Characters.저팔계, Language.CN))
                 .thenReturn(Optional.empty());
 
-        assertThrows(StoryNotExistException.class, () -> {
+        assertThrows(RestApiException.class, () -> {
             storyService.getStory(requestDto);
         });
     }

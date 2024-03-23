@@ -14,7 +14,9 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
@@ -25,8 +27,12 @@ class BaiduTranslatorTest {
     @Autowired
     private BaiduTranslator baiduTranslator;
 
-
     private RestTemplate restTemplate;
+
+    @BeforeEach
+    public void before() {
+        restTemplate = new RestTemplate();
+    }
 
 
     @Test
@@ -54,9 +60,24 @@ class BaiduTranslatorTest {
     }
 
     @Test
+    void translateMany_ValidResponse_ReturnsKRTranslation() throws JsonProcessingException {
+        // 준비
+        String beforeTranslate = "你好";
+
+        // 실행
+        List<String> list = IntStream.range(0, 2)
+                .mapToObj(i -> baiduTranslator.translate(beforeTranslate, Language.CN, Language.KR))
+                .toList();
+
+        // 검증
+        assertEquals("안녕하세요.", list.get(0));
+        assertEquals("안녕하세요.", list.get(1));
+    }
+
+
+    @Test
     void translate_InvalidLanguage_ReturnsIllegalArgumentException() {
         // 준비
-        restTemplate = new RestTemplate();
         String beforeTranslate = "안녕하세요.";
 
         // 실행 & 검증

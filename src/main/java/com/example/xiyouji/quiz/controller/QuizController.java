@@ -1,5 +1,7 @@
 package com.example.xiyouji.quiz.controller;
 
+import com.example.xiyouji.exception.RestApiException;
+import com.example.xiyouji.exception.impl.StoryErrorCode;
 import com.example.xiyouji.quiz.dto.QuizDto;
 import com.example.xiyouji.quiz.service.QuizService;
 import com.example.xiyouji.type.Language;
