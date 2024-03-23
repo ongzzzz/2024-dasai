@@ -1,5 +1,6 @@
 package com.example.xiyouji.login.entity;
 
+import com.example.xiyouji.result_rank_comment.entity.BaseTime;
 import com.example.xiyouji.result_rank_comment.entity.Comment;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
