@@ -1,4 +1,4 @@
-package com.example.xiyouji.result_rank_comment.config;
+package com.example.xiyouji.config;
 
 import com.example.xiyouji.result_rank_comment.dto.RankingDto;
 import org.springframework.beans.factory.annotation.Value;

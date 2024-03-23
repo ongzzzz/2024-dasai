@@ -1,8 +1,7 @@
 package com.example.xiyouji.result_rank_comment.repository;
 
 import com.example.xiyouji.login.entity.Member;
-import com.example.xiyouji.login.repository.MemberRepository;
-import com.example.xiyouji.result_rank_comment.config.JpaConfig;
+import com.example.xiyouji.config.JpaConfig;
 import com.example.xiyouji.result_rank_comment.entity.Comment;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,7 +14,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.TestPropertySource;
 
-import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Import(JpaConfig.class)

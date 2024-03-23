@@ -39,4 +39,5 @@ out/
 *.properties
 *.yaml
 application.yml
+application-test.yml
 src/main/resources/application.yml
