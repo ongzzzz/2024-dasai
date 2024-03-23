@@ -2,6 +2,7 @@ package com.example.xiyouji.quiz.service.impl;
 
 import com.example.xiyouji.quiz.service.QuizSelector;
 import com.example.xiyouji.quiz.vo.Quiz;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import java.util.Collections;

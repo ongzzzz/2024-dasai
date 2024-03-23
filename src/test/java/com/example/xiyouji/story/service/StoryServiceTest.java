@@ -1,16 +1,14 @@
 package com.example.xiyouji.story.service;
 
-import com.example.xiyouji.exception.StoryNotExistException;
+import com.example.xiyouji.exception.RestApiException;
 import com.example.xiyouji.story.dto.StoryDto;
 import com.example.xiyouji.story.repository.StoryRepository;
 import com.example.xiyouji.story.vo.Story;
 
 import com.example.xiyouji.type.Characters;
 import com.example.xiyouji.type.Language;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
@@ -22,15 +20,15 @@ import static org.mockito.Mockito.when;
 @SpringBootTest
 class StoryServiceTest {
 
-    private StoryRepository storyRepository;
-
+    @Autowired
     private StoryService storyService;
 
-    @BeforeEach
-    public void setUp() {
-        storyRepository = Mockito.mock(StoryRepository.class); // 모의 객체 생성
-        storyService = new StoryService(storyRepository); // 생성자를 통한 수동 주입
-    }
+    @MockBean
+    private StoryRepository storyRepository;
+
+
+
+
 
     @Test
     public void whenKRStoryExists_thenStoryShouldBeReturned() {
@@ -92,7 +90,7 @@ class StoryServiceTest {
                 .thenReturn(Optional.empty());
 
         // 실행 & 검증
-        assertThrows(StoryNotExistException.class, () -> {
+        assertThrows(RestApiException.class, () -> {
             storyService.getStory(requestDto);
         });
     }
@@ -110,11 +108,17 @@ class StoryServiceTest {
                 .language(Language.CN)
                 .storyContent("孙悟空内容")
                 .build();
-        when(storyRepository.getStoryByCharacters(Characters.손오공))
+        Story mockStory_kr = Story.builder()
+                .characters(Characters.손오공)
+                .language(Language.KR)
+                .storyContent("손오공 내용")
+                .build();
+        when(storyRepository.getStoryByCharactersAndLanguage(Characters.손오공, Language.CN))
                 .thenReturn(Optional.of(mockStory));
 
         // 실행
         StoryDto.StoryResponseDto responseDto = storyService.getCharacterStory(requestDto);
+
 
         // 검증
         assertEquals("孙悟空内容", responseDto.getStoryContent());
@@ -128,10 +132,10 @@ class StoryServiceTest {
                 .character(Characters.저팔계)
                 .build();
 
-        when(storyRepository.getStoryByCharacters(Characters.저팔계))
+        when(storyRepository.getStoryByCharactersAndLanguage(Characters.저팔계, Language.CN))
                 .thenReturn(Optional.empty());
 
-        assertThrows(StoryNotExistException.class, () -> {
+        assertThrows(RestApiException.class, () -> {
             storyService.getStory(requestDto);
         });
     }

@@ -5,8 +5,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
+
 public interface QuizSelector {
 
     List<Quiz> selectQuiz(List<Quiz> quizzes, Integer num);
+
 }
