@@ -1,6 +1,6 @@
 package com.example.xiyouji.result_rank_comment.config;
 
-import com.example.xiyouji.result_rank_comment.dto.RankingTopTenResponse;
+import com.example.xiyouji.result_rank_comment.dto.RankingDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,12 +35,12 @@ public class RedisConfig {
 
 
     @Bean
-    public RedisTemplate<String, RankingTopTenResponse> redisTemplate(){
-        RedisTemplate<String, RankingTopTenResponse> redisTemplate = new RedisTemplate<>();
+    public RedisTemplate<String, RankingDto> redisTemplate(){
+        RedisTemplate<String, RankingDto> redisTemplate = new RedisTemplate<>();
 
         redisTemplate.setConnectionFactory(redisConnectionFactory());
         redisTemplate.setKeySerializer(new StringRedisSerializer());
-        redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(RankingTopTenResponse.class));
+        redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(RankingDto.class));
         return redisTemplate;
     }
 }

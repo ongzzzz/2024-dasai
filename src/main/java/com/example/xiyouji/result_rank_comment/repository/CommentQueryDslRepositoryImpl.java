@@ -32,7 +32,6 @@ public class CommentQueryDslRepositoryImpl implements CommentQueryDslRepository 
                 .fetch();
         JPAQuery<Long> count = jpaQueryFactory.select(comment.count()).from(comment);
         return PageableExecutionUtils.getPage(commentList, pageable, count::fetchFirst);
-
     }
     @Override
     public boolean existsByMemberId(Long userId) {
@@ -41,7 +40,6 @@ public class CommentQueryDslRepositoryImpl implements CommentQueryDslRepository 
                 .from(comment)
                 .where(comment.member.id.eq(userId))
                 .fetchFirst();
-
         return exists != null;
     }
 }

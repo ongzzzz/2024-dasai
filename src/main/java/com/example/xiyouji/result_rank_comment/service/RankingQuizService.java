@@ -4,13 +4,10 @@ import com.example.xiyouji.login.entity.Member;
 import com.example.xiyouji.login.repository.MemberRepository;
 import com.example.xiyouji.result_rank_comment.constant.CustomException;
 import com.example.xiyouji.result_rank_comment.constant.ErrorCode;
-import com.example.xiyouji.result_rank_comment.dto.RankingTopTenResponse;
+import com.example.xiyouji.result_rank_comment.dto.RankingDto;
 import com.example.xiyouji.result_rank_comment.dto.UserRankingResponse;
-import com.example.xiyouji.result_rank_comment.repository.CommentRepository;
 import com.example.xiyouji.type.Characters;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Service;
@@ -27,28 +24,29 @@ public class RankingQuizService {
 
 
     private final MemberRepository memberRepository;
-    private final RedisTemplate<String, RankingTopTenResponse> redisTemplate;
+    private final RedisTemplate<String, RankingDto> redisTemplate;
     private final static String RANKING = "ranking";
 
 
     @Transactional
     public UserRankingResponse saveUserRankingAndIsUserInTopTen(Long userId, List<String> characters){
-        ZSetOperations<String, RankingTopTenResponse> zSetOperations = redisTemplate.opsForZSet();
+        ZSetOperations<String, RankingDto> zSetOperations = redisTemplate.opsForZSet();
 
         // Character 타입으로 변환
         List<String> charactersFormat = characters.stream()
                 .map(character->Characters.fromString(character).toString()).toList();
         // 가장 많은 캐릭터 정답을 추출 - 중복일 경우 다수 추출
         List<Characters> maxCorrectCharacters = findMaxCorrectCharacters(charactersFormat);
+
         // 회원 정보 검색
         Member member = memberRepository.findById(userId)
                 .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
-        RankingTopTenResponse rankingTopTenResponse = RankingTopTenResponse.of(userId,charactersFormat.size(), member.getNickName(),maxCorrectCharacters);
+        RankingDto rankingDto = RankingDto.of(userId,charactersFormat.size(), member.getNickName(),maxCorrectCharacters);
 
         // 랭킹 정보를 레디스에 저장
-        saveRanking(zSetOperations, rankingTopTenResponse, charactersFormat.size());
+        saveRanking(zSetOperations, rankingDto, charactersFormat.size());
 
-        Long userRank = zSetOperations.reverseRank(RANKING, rankingTopTenResponse);
+        Long userRank = zSetOperations.reverseRank(RANKING, rankingDto);
         if(userRank == null){
             throw new CustomException(ErrorCode.USER_RANKING_NOT_FOUND);
         }
@@ -58,11 +56,11 @@ public class RankingQuizService {
                 UserRankingResponse.empty():
                 UserRankingResponse.of(userId, userRank,charactersFormat.size(), member.getNickName(), maxCorrectCharacters);
     }
-    public List<RankingTopTenResponse> getRankingTopTen(){
-        ZSetOperations<String, RankingTopTenResponse> zSetOperations = redisTemplate.opsForZSet();
+    public List<RankingDto> getRankingTopTen(){
+        ZSetOperations<String, RankingDto> zSetOperations = redisTemplate.opsForZSet();
         // 가장 많은 답을 맞은 계정 부터 10위까지 추출
-        Set<RankingTopTenResponse> rankingTopTenResponses = zSetOperations.reverseRange(RANKING, 0, 9);
-        return new ArrayList<>(Objects.requireNonNull(rankingTopTenResponses));
+        Set<RankingDto> rankingDtos = zSetOperations.reverseRange(RANKING, 0, 9);
+        return new ArrayList<>(Objects.requireNonNull(rankingDtos));
     }
 
 
@@ -94,7 +92,7 @@ public class RankingQuizService {
     }
 
 
-    private static void saveRanking(ZSetOperations<String, RankingTopTenResponse> zSetOperations, RankingTopTenResponse rankingTopTenResponse, Integer score) {
-       zSetOperations.add(RANKING, rankingTopTenResponse, score);
+    private static void saveRanking(ZSetOperations<String, RankingDto> zSetOperations, RankingDto rankingDto, Integer score) {
+       zSetOperations.add(RANKING, rankingDto, score);
     }
 }

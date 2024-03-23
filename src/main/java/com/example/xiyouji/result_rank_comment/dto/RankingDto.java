@@ -4,19 +4,19 @@ import com.example.xiyouji.type.Characters;
 
 import java.util.List;
 
-public record RankingTopTenResponse(
+public record RankingDto(
 
         Long userId,
         Integer quizResult,
         String nickName,
         List<Characters> characters
 ) {
-    public static RankingTopTenResponse of(
+    public static RankingDto of(
             Long userId,
             Integer quizResult,
             String nickName,
             List<Characters> characters
     ){
-        return new RankingTopTenResponse(userId, quizResult, nickName, characters);
+        return new RankingDto(userId, quizResult, nickName, characters);
     }
 }
