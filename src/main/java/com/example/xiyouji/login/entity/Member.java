@@ -1,9 +1,8 @@
 package com.example.xiyouji.login.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.example.xiyouji.result_rank_comment.entity.BaseTime;
+import com.example.xiyouji.result_rank_comment.entity.Comment;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,9 +16,16 @@ public class Member extends BaseTime {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
     public String nickName;
+
+    @OneToOne(mappedBy = "member")
+    private Comment comment;
     @Builder
     public Member(String nickName) {
         this.nickName = nickName;
+    }
+
+    public void addComment(Comment comment){
+        this.comment = comment;
     }
 
 }

@@ -1,4 +1,4 @@
-package com.example.xiyouji.login.entity;
+package com.example.xiyouji.result_rank_comment.entity;
 
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
