@@ -28,7 +28,7 @@ public class StoryService {
                 .orElseThrow(() -> new RestApiException(StoryErrorCode.STORY_NOT_EXIST));
 
         List<String> fileNames = story.getStoryImages().stream()
-                .map(StoryImage::getFileName)
+                .map(StoryImage::getFilename)
                 .toList();
 
         return story.toStoryResponseDto(fileHandler.getFullPaths(fileNames));
