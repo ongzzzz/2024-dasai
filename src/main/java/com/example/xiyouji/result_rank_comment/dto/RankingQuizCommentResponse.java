@@ -6,7 +6,7 @@ import java.util.List;
 
 public record RankingQuizCommentResponse(
 
-        List<RankingDto> rankingTopTen,
+        List<RankingDto> rankingTopFive,
         UserRankingResponse userRanking,
         Page<CommentsResponse> comments
 
