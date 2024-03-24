@@ -5,6 +5,7 @@ import com.example.xiyouji.story.dto.StoryDto;
 import com.example.xiyouji.story.repository.StoryRepository;
 import com.example.xiyouji.story.vo.Story;
 
+import com.example.xiyouji.story.vo.StoryContent;
 import com.example.xiyouji.type.Characters;
 import com.example.xiyouji.type.Language;
 import org.junit.jupiter.api.Test;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -41,9 +43,12 @@ class StoryServiceTest {
         Story mockStory = Story.builder()
                 .characters(Characters.NONE)
                 .language(Language.KR)
-                .storyContent("한국어 내용입니다.")
+                .storyContent(List.of(StoryContent.builder()
+                        .content("내용입니다.")
+                        .build()))
                 .storyTitle("제목입니다.")
                 .build();
+
         when(storyRepository.getStoryByStoryTitleAndLanguage("제목입니다.", Language.KR))
                 .thenReturn(Optional.of(mockStory));
 
@@ -65,9 +70,12 @@ class StoryServiceTest {
         Story mockStory = Story.builder()
                 .characters(Characters.NONE)
                 .language(Language.CN)
-                .storyContent("中文内容")
+                .storyContent(List.of(StoryContent.builder()
+                        .content("中文内容")
+                        .build()))
                 .storyTitle("中文题目")
                 .build();
+
         when(storyRepository.getStoryByStoryTitleAndLanguage("中文题目", Language.CN))
                 .thenReturn(Optional.of(mockStory));
 
@@ -106,12 +114,17 @@ class StoryServiceTest {
         Story mockStory = Story.builder()
                 .characters(Characters.손오공)
                 .language(Language.CN)
-                .storyContent("孙悟空内容")
+                .storyContent(List.of(StoryContent.builder()
+                        .content("孙悟空内容")
+                        .build()))
                 .build();
+
         Story mockStory_kr = Story.builder()
                 .characters(Characters.손오공)
                 .language(Language.KR)
-                .storyContent("손오공 내용")
+                .storyContent(List.of(StoryContent.builder()
+                        .content("손오공 내용")
+                        .build()))
                 .build();
         when(storyRepository.getStoryByCharactersAndLanguage(Characters.손오공, Language.CN))
                 .thenReturn(Optional.of(mockStory));

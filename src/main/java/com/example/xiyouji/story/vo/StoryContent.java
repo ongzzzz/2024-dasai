@@ -5,12 +5,11 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Getter
 @RequiredArgsConstructor
-public class Content {
+public class StoryContent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,16 +18,12 @@ public class Content {
     @ManyToOne
     private Story story;
 
-    private String storyStr;
-
-    @OneToOne
-    private UploadFile storyImg;
+    private String content;
 
     @Builder
-    public Content(Long id, Story story, String storyStr, UploadFile storyImg) {
+    public StoryContent(Long id, Story story, String content) {
         this.id = id;
         this.story = story;
-        this.storyStr = storyStr;
-        this.storyImg = storyImg;
+        this.content = content;
     }
 }
