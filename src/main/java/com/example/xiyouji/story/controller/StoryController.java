@@ -16,10 +16,10 @@ public class StoryController {
 
     private final StoryService storyService;
 
-    @GetMapping("/map/{storyTitle}/NONE/{language}")
-    public ResponseEntity<StoryDto.StoryResponseDto> getMapStoryContent(@PathVariable String language, @PathVariable String storyTitle) {
+    @GetMapping("/map/{storyId}/NONE/{language}")
+    public ResponseEntity<StoryDto.StoryResponseDto> getMapStoryContent(@PathVariable String language, @PathVariable Long storyId) {
         StoryDto.StoryRequestDto storyRequestDto = StoryDto.StoryRequestDto.builder()
-                .storyTitle(storyTitle)
+                .storyId(storyId)
                 .language(Language.fromString(language))
                 .build();
 
