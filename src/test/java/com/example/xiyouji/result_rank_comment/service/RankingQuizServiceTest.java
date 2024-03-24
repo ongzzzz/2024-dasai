@@ -66,7 +66,7 @@ class RankingQuizServiceTest {
         List<String> characters = createCharacters();
         Member member = createMember();
         memberRepository.save(member);
-        UserRankingResponse userRankingResponse = rankingQuizService.saveUserRankingAndIsUserInTopTen(1L, characters);
+        UserRankingResponse userRankingResponse = rankingQuizService.saveUserRankingAndIsUserInTopFive(1L, characters);
         assertThat(userRankingResponse).isNull();
 
     }
@@ -77,7 +77,7 @@ class RankingQuizServiceTest {
         List<String> characters = new ArrayList<>();
         Member member = createMember();
         memberRepository.save(member);
-        UserRankingResponse userRankingResponse = rankingQuizService.saveUserRankingAndIsUserInTopTen(1L, characters);
+        UserRankingResponse userRankingResponse = rankingQuizService.saveUserRankingAndIsUserInTopFive(1L, characters);
         assertThat(userRankingResponse)
                 .extracting("userId","rankingCount","quizResult", "nickName", "characters")
                 .containsExactly(1L, 11, 10,"name", List.of(Characters.저팔계,Characters.손오공));
@@ -86,7 +86,7 @@ class RankingQuizServiceTest {
     @Test
     @DisplayName("1위 부터 10까지 순위 검색 테스트")
     void getRankingTopTen() throws Exception {
-        List<RankingDto> rankingTopTen = rankingQuizService.getRankingTopTen();
+        List<RankingDto> rankingTopTen = rankingQuizService.getRankingTopFive();
         assertThat(rankingTopTen.size()).isEqualTo(10);
         assertThat(rankingTopTen.get(0))
                 .extracting("userId", "quizResult", "characters")

@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,15 +28,14 @@ public class RankingQuizCommentRestController {
     public ResponseEntity<RankingQuizCommentResponse>
     saveQuizResult(@PathVariable Long userId, @RequestBody List<String> characters){
         UserRankingResponse userRankingResponse =
-                rankingQuizService.saveUserRankingAndIsUserInTopTen(userId, characters);
-        List<RankingDto> rankingTopTen = rankingQuizService.getRankingTopTen();
+                rankingQuizService.saveUserRankingAndIsUserInTopFive(userId, characters);
+        List<RankingDto> rankingTopTen = rankingQuizService.getRankingTopFive();
         Page<CommentsResponse> commentsResponse =
                 commentService.getComments(PageRequest.of(0, 5, Sort.by("createdDate").descending()));
 
-        return new ResponseEntity<>(
-                RankingQuizCommentResponse.of(rankingTopTen, userRankingResponse, commentsResponse),
-                HttpStatus.OK
-        );
+        return ResponseEntity.ok(
+                RankingQuizCommentResponse.of(rankingTopTen, userRankingResponse, commentsResponse)
+                );
     }
 }
 

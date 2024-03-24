@@ -29,7 +29,7 @@ public class RankingQuizService {
 
 
     @Transactional
-    public UserRankingResponse saveUserRankingAndIsUserInTopTen(Long userId, List<String> characters){
+    public UserRankingResponse saveUserRankingAndIsUserInTopFive(Long userId, List<String> characters){
         ZSetOperations<String, RankingDto> zSetOperations = redisTemplate.opsForZSet();
 
         // Character 타입으로 변환
@@ -56,7 +56,7 @@ public class RankingQuizService {
                 UserRankingResponse.empty():
                 UserRankingResponse.of(userId, userRank,charactersFormat.size(), member.getNickName(), maxCorrectCharacters);
     }
-    public List<RankingDto> getRankingTopTen(){
+    public List<RankingDto> getRankingTopFive(){
         ZSetOperations<String, RankingDto> zSetOperations = redisTemplate.opsForZSet();
         // 가장 많은 답을 맞은 계정 부터 10위까지 추출
         Set<RankingDto> rankingDtos = zSetOperations.reverseRange(RANKING, 0, 9);
