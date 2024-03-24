@@ -1,6 +1,9 @@
 package com.example.xiyouji.story.vo;
 
 
+import com.example.xiyouji.store.FileConvert;
+import com.example.xiyouji.store.InMemoryMultipartFile;
+import com.example.xiyouji.store.impl.FileHandlerImpl;
 import com.example.xiyouji.story.dto.StoryDto;
 import com.example.xiyouji.type.Characters;
 import com.example.xiyouji.type.Language;
@@ -35,9 +38,19 @@ public class Story {
     @Enumerated
     private Language language;
 
+
     public StoryDto.StoryResponseDto toStoryResponseDto() {
         return StoryDto.StoryResponseDto.builder()
-                .storyContent(storyContent.stream()
+                .storyContents(storyContent.stream()
+                        .map(StoryContent::getContent)
+                        .toList())
+                .build();
+    }
+
+    public StoryDto.StoryResponseDto toStoryResponseDto(List<String> imageUrls) {
+        return StoryDto.StoryResponseDto.builder()
+                .storyImagesUrl(imageUrls)
+                .storyContents(storyContent.stream()
                         .map(StoryContent::getContent)
                         .toList())
                 .build();

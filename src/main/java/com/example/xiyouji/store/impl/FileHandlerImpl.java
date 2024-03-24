@@ -3,17 +3,16 @@ package com.example.xiyouji.store.impl;
 import com.example.xiyouji.store.FileHandler;
 import com.example.xiyouji.store.InMemoryMultipartFile;
 import com.example.xiyouji.store.UploadFile;
-import com.example.xiyouji.store.UploadFileRepository;
+import com.example.xiyouji.store.repository.UploadFileRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.UncheckedIOException;
-import java.nio.file.Path;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -31,39 +30,10 @@ public class FileHandlerImpl implements FileHandler {
     public String getFullPath(String filename) { return fileDir + filename; }
 
     @Override
-    public UploadFile storeFile(MultipartFile multipartFile) throws IOException {
-        if(multipartFile.isEmpty()) {
-            return null;
-        }
-
-
-
-        String originalFilename = multipartFile.getOriginalFilename();
-        // 작성자가 업로드한 파일명 -> 서버 내부에서 관리하는 파일명
-        // 파일명을 중복되지 않게끔 UUID로 정하고 ".확장자"는 그대로
-
-        String storeFilename = UUID.randomUUID() + "." + extractExt(originalFilename);
-        //System.out.println(getFullPath(storeFilename));
-        // 파일을 저장하는 부분 -> 파일경로 + storeFilename 에 저장
-
-        multipartFile.transferTo(Path.of(getFullPath(storeFilename)));
-
-        return uploadFileRepository.save(UploadFile.builder()
-                .orgFileName(originalFilename)
-                .storeFileName(storeFilename)
-                .build());
-    }
-
-    // 파일이 여러개 들어왔을 때 처리해주는 부분
-    @Override
-    public List<UploadFile> storeFiles(List<MultipartFile> multipartFiles, Object objectBy) throws IOException {
-        List<UploadFile> storeFileResult = new ArrayList<>();
-        for (MultipartFile multipartFile : multipartFiles) {
-            if(!multipartFile.isEmpty()) {
-                storeFileResult.add(storeFile(multipartFile));
-            }
-        }
-        return storeFileResult;
+    public List<String> getFullPaths(List<String> filenames) {
+        return filenames.stream()
+                .map(filename -> fileDir + filename)
+                .toList();
     }
 
     @Override
@@ -73,33 +43,6 @@ public class FileHandlerImpl implements FileHandler {
             list.add(extractFile(file));
         }
         return list;
-    }
-
-    @Override
-    public boolean deleteFile(UploadFile uploadFile) {
-        String storeFileName = uploadFile.getStoreFileName();
-        String filePath = getFullPath(storeFileName);
-        File file = new File(filePath);
-
-        if (file.exists()) {
-            if (file.delete()) {
-                return true; // File deleted successfully
-            } else {
-                return false; // Failed to delete the file
-            }
-        } else {
-            return true; // File doesn't exist, treat as a successful deletion
-        }
-    }
-
-    @Override
-    public boolean deleteFiles(List<? extends UploadFile> uploadFiles) {
-        for (UploadFile file : uploadFiles) {
-            if (!deleteFile(file)) {
-                return false;
-            }
-        }
-        return true;
     }
 
     @Override
@@ -115,7 +58,7 @@ public class FileHandlerImpl implements FileHandler {
             return null;
             //todo 처리 방식 고민 오류를 터뜨릴지 null 을 반환 할지.
         }
-        return new InMemoryMultipartFile(uploadFile.getOrgFileName(), fileContent);
+        return new InMemoryMultipartFile(uploadFile.getStoreFileName(), fileContent);
     }
 
     // 확장자 추출
@@ -125,15 +68,5 @@ public class FileHandlerImpl implements FileHandler {
         return originalFilename.substring(pos + 1);
     }
 
-    public static String multipartFileToString(InMemoryMultipartFile inMemoryMultipartFile) {
-        return Optional.ofNullable(inMemoryMultipartFile)
-                .map(file -> {
-                    try {
-                        return Base64.getEncoder().encodeToString(file.getBytes());
-                    } catch (IOException e) {
-                        throw new UncheckedIOException("이미지 변환 실패", e);
-                    }
-                })
-                .orElse("");
-    }
+
 }

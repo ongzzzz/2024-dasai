@@ -17,10 +17,12 @@ public class StoryImage {
     @ManyToOne
     private Story story;
 
+    private String fileName;
 
     @Builder
-    public StoryImage(Long id, Story story) {
+    public StoryImage(Long id, Story story, String fileName) {
         this.id = id;
         this.story = story;
+        this.fileName = fileName;
     }
 }

@@ -56,7 +56,7 @@ class StoryServiceTest {
         StoryDto.StoryResponseDto responseDto = storyService.getStory(requestDto);
 
         // 검증
-        assertEquals("한국어 내용입니다.", responseDto.getStoryContent());
+        assertEquals("한국어 내용입니다.", responseDto.getStoryContents());
     }
 
     @Test
@@ -83,7 +83,7 @@ class StoryServiceTest {
         StoryDto.StoryResponseDto responseDto = storyService.getStory(requestDto);
 
         // 검증
-        assertEquals("中文内容", responseDto.getStoryContent());
+        assertEquals("中文内容", responseDto.getStoryContents());
     }
 
     @Test
@@ -134,7 +134,7 @@ class StoryServiceTest {
 
 
         // 검증
-        assertEquals("孙悟空内容", responseDto.getStoryContent());
+        assertEquals("孙悟空内容", responseDto.getStoryContents());
     }
 
     @Test
