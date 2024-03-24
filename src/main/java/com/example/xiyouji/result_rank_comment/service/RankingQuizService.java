@@ -51,15 +51,15 @@ public class RankingQuizService {
             throw new RestApiException(UserErrorCode.USER_RANKING_NOT_FOUND);
         }
 
-        // 회원이 10위 안에 있다면 빈 값을 반환, 10위 밖에 있다면 회원 순위를 함께 dto에 담아서 반환
-        return userRank < 10 ?
+        // 회원이 5위 안에 있다면 빈 값을 반환, 10위 밖에 있다면 회원 순위를 함께 dto에 담아서 반환
+        return userRank < 5 ?
                 UserRankingResponse.empty():
                 UserRankingResponse.of(userId, userRank,charactersFormat.size(), member.getNickName(), maxCorrectCharacters);
     }
     public List<RankingDto> getRankingTopFive(){
         ZSetOperations<String, RankingDto> zSetOperations = redisTemplate.opsForZSet();
-        // 가장 많은 답을 맞은 계정 부터 10위까지 추출
-        Set<RankingDto> rankingDtos = zSetOperations.reverseRange(RANKING, 0, 9);
+        // 가장 많은 답을 맞은 계정 부터 5위까지 추출
+        Set<RankingDto> rankingDtos = zSetOperations.reverseRange(RANKING, 0, 4);
         return new ArrayList<>(Objects.requireNonNull(rankingDtos));
     }
 
