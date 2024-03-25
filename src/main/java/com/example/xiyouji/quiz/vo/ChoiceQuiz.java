@@ -3,6 +3,7 @@ package com.example.xiyouji.quiz.vo;
 import com.example.xiyouji.quiz.dto.QuizDto;
 import com.example.xiyouji.type.Characters;
 import com.example.xiyouji.type.Language;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -15,12 +16,16 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class ChoiceQuiz extends Quiz {
-    private Integer answer;
+    private Integer answerNum;
+
+    @ElementCollection
+    private List<String> options; // 문제 보기를 저장하는 필드
 
     @Builder
-    public ChoiceQuiz(List<Characters> characterType, String quizContent, Language language, Integer answer) {
-        super(characterType, quizContent, language);
-        this.answer = answer;
+    public ChoiceQuiz(Long id, List<Characters> characterType, String quizContent, String answerDescription, Language language, Integer answerNum, List<String> options) {
+        super(id, characterType, quizContent, answerDescription, language);
+        this.answerNum = answerNum;
+        this.options = options;
     }
 
 /*    private void validate(List<Characters> charactersType, String quizContent, Language language, Integer answer) {
@@ -30,10 +35,10 @@ public class ChoiceQuiz extends Quiz {
     @Override
     public QuizDto.QuizResponseDto toQuizResponse() {
         return QuizDto.QuizResponseDto.builder()
-                .characterType(getCharacterType().stream()
-                        .map(Characters::getValue_kr)
-                        .toList())
-                .result(answer)
+                .characterType(getCharacterType().get(0).getValue_kr())
+                .answer(answerNum)
+                .options(options)
+                .answerDescription(getAnswerDescription())
                 .quizContent(getQuizContent())
                 .build();
     }

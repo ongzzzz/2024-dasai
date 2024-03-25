@@ -10,4 +10,6 @@ public interface QuizSelector {
 
     List<Quiz> selectQuiz(List<Quiz> quizzes, Integer num);
 
+    String getType();
+
 }

@@ -28,12 +28,16 @@ public abstract class Quiz {
 
     private String quizContent;
 
+    private String answerDescription;
+
     private Language language;
 
 
-    public Quiz(List<Characters> characterType, String quizContent, Language language) {
+    public Quiz(Long id, List<Characters> characterType, String quizContent, String answerDescription, Language language) {
+        this.id = id;
         this.characterType = characterType;
         this.quizContent = quizContent;
+        this.answerDescription = answerDescription;
         this.language = language;
     }
 

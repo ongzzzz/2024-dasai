@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>문제화면</title>
+  <link rel="stylesheet" href="test.css">
+  <script src="https://kit.fontawesome.com/32c80bd758.js" crossorigin="anonymous"></script>
+  <script>
+    (function(d) {
+      var config = {
+        kitId: 'wts0fmj',
+        scriptTimeout: 3000,
+        async: true
+      },
+      h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+    })(document);
+  </script>
+</head>
+<body>
+
+  <div class="container">
+    <div class="main">
+      <header>
+        <ul class="nav">
+          <li><a href="#"><i class="fa-solid fa-house"></i> HOME</a></li>
+          <li><a href="#">등장인물</a></li>
+          <li><a href="#">내용</a></li>
+          <li><a href="#">퀴즈</a></li>
+        </ul>
+      </header>
+      <section>
+        <div class="question_container">
+          <h3 class="number">Q1</h3>
+          <h3 class="question">손오공은 어디에서 태어났나요?</h3>
+        </div>
+      
+        <div class="answer">
+          <div>
+            <input type="radio" name="answer_1" id="radio1">
+            <label for="radio1" class="radio_label">동국 동톈리</label>
+          </div>
+          <div>
+            <input type="radio" name="answer_1" id="radio2">
+            <label for="radio2" class="radio_label">서국 서톈리</label>
+          </div>
+          <div>
+            <input type="radio" name="answer_1" id="radio3">
+            <label for="radio3" class="radio_label">남국 남톈리</label>
+          </div>
+          <div>
+            <input type="radio" name="answer_1" id="radio4">
+            <label for="radio4" class="radio_label">북국 북톈리</label>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  
+</body>
+</html>

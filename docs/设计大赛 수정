@@ -1,0 +1,43 @@
+	캐릭터 페이지(메인페이지) 1장 - url: /character/등장인물 이름/"cn or kr" getmapping
+									캐릭터 타입의 데이터 값을 연결
+									벡앤드에서 데이터 반환: list string으로 content로 보내줌 (json)
+	스토리 - url: /story/"cn or kr"
+	퀴즈 사이트 - url: /quiz/start/"nickname(변수)"/"cn or kr"
+				 데이터 값: getmapping
+
+				 벡엔드에서는 list dto로 보내줄거임, dto 하나에는 퀴즈 컨텐트랑 정답(정답은 list string으로 보내고 answer로, 정답 설명을 answer description)
+				//벡엔드에서 type, content, result를 보내면
+				//프론트에서는 타입에 따라서 ui를 따로
+							//데이터 값:getmapping
+				문제는 총 12개로 (40개에서 랜덤)
+ 				이름 입력하고 
+				벡엔드에서 list string으로 보내줌 (dto list를 보내는데 dto 하나 안에 퀴즈 content를 넣음)
+				**퀴즈 content/캐릭터 type/정답() 3가지를 벡엔드로 보내기**
+				데이터 값: postmapping
+				프론트로 퀴즈를 넘겨줄때는 list로
+				 quiz content/캐릭터 type/result/user id -> 프론트엔드에 보내는 값
+				 getmapping
+	퀴즈 결과 사이트 ( 퀴즈 결과, 순위, 랭킹) - url: postmapping/quiz/result/userid/"cn or kr" (정답을 보낼때)
+	userid는 url로 캐릭터 타입 list를 body로!
+
+	반환값: 
+			
+getmapping으로 전달하기 /result/userid를 넘기면 프론트엔드에 결과값을 mbti를 넘겨줌
+userid를 클라이언트가 가지고 있는데 페이지를 넘길때 파라미터로 넘겨줄수 있음 (제이쿼리로 해보고 안되면 알려주기)
+
+결과 보낸 후 
+
+comment은 최신순! 제약을 주기 위해 한 사람당 2개만!
+
+comment 남겼을때 post로 comment/userid comment내용은 데이터에 담아서 보내주 
+
+postmapping로 comment/userid를 벡엔드에 보내주면
+
+벡엔드에서 postmapping 결과 값으로 닉네임/content를 리스트로 프론트엔드에 보내줌
+
+comment를 안 보여주다가 댓글을 달아야 5개를 보여줄수 있게
+프론트엔드 결과창 url: result 
+벡앤드로 결과창을 보낼때는 getmapping
+url /데이터 전송 방법
+
+퀴즈 화면 프론트에서 닉네임을 저장하여 사용자가 시작하기 버튼을 눌렀을 때 프론트에서 검증(빈칸, 긴 닉네임)을 한 후, 벡엔드에

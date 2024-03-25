@@ -1,0 +1,183 @@
+body {
+  font-family: "omnigothic", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  background-color: #f3f3f3;
+  color: #000;
+}
+a {
+  color: #000;
+  text-decoration: none;
+}
+header {
+  height: 60px;
+  overflow: hidden;
+}
+.nav {
+  list-style: none;
+  padding: 20px 250px 0 0;
+  margin: 0;
+  width: 800px;
+  height: 60px;
+  display: flex; 
+  float: left;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.nav li {
+  flex: 1;
+  text-align: center;
+}
+.nav li a {
+  font-size: 18px;
+  position: relative;
+}
+.nav li a:hover {
+  color: #F86551;
+  transition: 0.3s;
+}
+.btn {
+  position: relative;
+  height: 60px;
+  float: right;
+  /* border: 1px solid red; */
+  /* overflow: hidden; */
+  padding: 5px 20px 0 0;
+}
+.btn input {
+  position: relative;
+  width: 180px;
+  height: 47px;
+  border-radius: 15px;
+  outline: none;
+  appearance: none;
+  font-weight: bold;
+  box-shadow: 0 1px 5px #c1c1d2bd;
+  /* overflow: hidden; */
+}
+.btn input::before,
+.btn input:after {
+  z-index: 2;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #000000;
+}
+.btn input:before{
+  content: "KR";
+  left: 40px;
+}
+.btn input::after{
+  content: "CN";
+  right: 40px;
+}
+.btn label {
+  z-index: 1;
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  border-radius: 15px;
+}
+.btn .btn-1 input {
+  transition: 0.2s -0.1s;
+}
+.btn .btn-1 input:checked{
+  background: #F86551;
+}
+.btn.btn-1 input:checked::before{
+  color: #fff;
+  transition: color 0.5s 0.2s;
+}
+.btn .btn-1 input:checked::after{
+  color: #fff;
+  transition: color 0.5s;
+}
+.btn.btn-1 input:checked + label {
+  left: 10px;
+  right: 110px;
+  background: #F86551;
+  transition: left 0.5s, right 0.4s 0.2s;
+}
+.btn.btn-1 input:not(:checked){
+  background: #F0F0F3;
+  transition: background 0.5s -0.1s;
+}
+.btn.btn-1 input:not(:checked)::before{
+  color: #000;
+  transition: color 0.5s;
+}
+.btn.btn-1 input:not(:checked):after{
+  color: #fff;
+  transition: color 0.5s 0.2s;
+}
+.btn.btn-1 input:not(:checked) + label {
+  left: 90px;
+  right: 30px;
+  background: #F86551;
+  transition: left 0.4s 0.2s, right 0.5s, background 0.35s -0.1s;
+}
+section {
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  position: absolute;
+}
+.quiz_logo img {
+  width: 202px;
+  height: 198px;
+}
+.quiz_logo h1 {
+  font-size: 50px;
+}
+.login {
+  /* border: 1px solid #000; */
+  padding: 50px;
+  width: 600px;
+}
+.login h2 {
+  font-weight: 300;
+  font-size: 30px;
+  margin-top: 10px;
+}
+.login input[type=text] {
+  outline: none;
+  border-radius: 40px;
+  border: none;
+}
+.login input[type=text] {
+  font-family: "omnigothic", sans-serif;
+  font-weight: 300;
+  text-align: center;
+  width: 335px;
+  height: 90px;
+  font-size: 25px;
+  box-shadow: 0 0 10px #776f6f3a;
+}
+.login input::placeholder {
+  opacity: 1;
+  transition: 0.3s;
+}
+.login input:focus::placeholder {
+  opacity: 0;
+  visibility: hidden;
+}
+#go_quiz {
+  width: 287px;
+  height: 90px;
+  border-radius: 50px;
+  border: none;
+  text-align: center;
+  box-shadow: 0 0 10px #776f6f3a;
+  font-family: "omnigothic", sans-serif;
+  font-weight: 300;
+  text-align: center;
+  font-size: 20px;
+  margin-top: 70px;
+}
+#go_quiz:hover {
+  background-color: #F86551;
+  transition: 0.3s;
+  cursor: pointer;
+  color: #fff;
+}
