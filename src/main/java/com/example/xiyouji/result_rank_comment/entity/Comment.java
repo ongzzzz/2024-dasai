@@ -25,13 +25,6 @@ public class Comment extends BaseTime {
     @Builder
     public Comment(String content, Member member) {
         this.content = content;
-        addMember(member);
-    }
-    public void addMember(Member member){
-        if(this.member != null){
-            member.addComment(null);
-        }
         this.member = member;
-        member.addComment(this);
     }
 }

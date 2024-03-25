@@ -4,7 +4,7 @@ import com.example.xiyouji.exception.RestApiException;
 import com.example.xiyouji.exception.impl.UserErrorCode;
 import com.example.xiyouji.login.entity.Member;
 import com.example.xiyouji.login.repository.MemberRepository;
-import com.example.xiyouji.result_rank_comment.dto.CommentsResponse;
+import com.example.xiyouji.result_rank_comment.dto.CommentResponse;
 import com.example.xiyouji.result_rank_comment.entity.Comment;
 import com.example.xiyouji.result_rank_comment.repository.CommentRepository;
 import org.junit.jupiter.api.DisplayName;
@@ -49,7 +49,7 @@ class CommentServiceTest {
         PageRequest pageRequest = PageRequest.of(0, 5, Sort.by("createdDate").descending());
         given(commentRepository.pagingComments(any())).willReturn(new PageImpl<>(comments));
         //when
-        Page<CommentsResponse> commentsPage = commentService.getComments(pageRequest);
+        Page<CommentResponse> commentsPage = commentService.getComments(pageRequest);
         //then
         assertThat(commentsPage.isFirst()).isTrue();
         assertThat(commentsPage.getNumberOfElements()).isEqualTo(5);
