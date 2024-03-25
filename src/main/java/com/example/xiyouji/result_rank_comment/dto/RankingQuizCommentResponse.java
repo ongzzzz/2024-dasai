@@ -8,14 +8,14 @@ public record RankingQuizCommentResponse(
 
         List<RankingDto> rankingTopFive,
         UserRankingResponse userRanking,
-        Page<CommentsResponse> comments
+        Page<CommentResponse> comments
 
 ) {
 
     public static RankingQuizCommentResponse of(
             List<RankingDto> rankingTopTen,
             UserRankingResponse userRanking,
-            Page<CommentsResponse> comments
+            Page<CommentResponse> comments
     ){
         return new RankingQuizCommentResponse(rankingTopTen, userRanking, comments);
     }

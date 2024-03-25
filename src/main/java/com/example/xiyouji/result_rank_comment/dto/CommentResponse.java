@@ -1,13 +1,13 @@
 package com.example.xiyouji.result_rank_comment.dto;
 
-public record CommentsResponse(
+public record CommentResponse(
         String nickName,
         String content
 ) {
-    public static CommentsResponse of(
+    public static CommentResponse of(
             String nickName,
             String content
     ){
-        return new CommentsResponse(nickName, content);
+        return new CommentResponse(nickName, content);
     }
 }

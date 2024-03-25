@@ -4,7 +4,7 @@ import com.example.xiyouji.exception.RestApiException;
 import com.example.xiyouji.exception.impl.UserErrorCode;
 import com.example.xiyouji.login.entity.Member;
 import com.example.xiyouji.login.repository.MemberRepository;
-import com.example.xiyouji.result_rank_comment.dto.CommentsResponse;
+import com.example.xiyouji.result_rank_comment.dto.CommentResponse;
 import com.example.xiyouji.result_rank_comment.entity.Comment;
 import com.example.xiyouji.result_rank_comment.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,9 +23,9 @@ public class CommentService {
     private final MemberRepository memberRepository;
 
     // 댓글 페이지 조회
-    public Page<CommentsResponse> getComments(Pageable pageable){
+    public Page<CommentResponse> getComments(Pageable pageable){
         return commentRepository.pagingComments(pageable)
-                .map(data->CommentsResponse.of(data.getMember().nickName, data.getContent()));
+                .map(data-> CommentResponse.of(data.getMember().nickName, data.getContent()));
     }
 
     // 댓글 저장
