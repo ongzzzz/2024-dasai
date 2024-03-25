@@ -1,7 +1,9 @@
 package com.example.xiyouji.instance;
 
 public class Instance {
-    public static final Integer QUIZ_NUM = 10;
+
+    public static final Integer CHARACTER_QUIZ_NUM = 3;
+    public static final Integer QUIZ_NUM = CHARACTER_QUIZ_NUM * 4;
 
     public static final String rootPath = System.getProperty("user.dir");
 

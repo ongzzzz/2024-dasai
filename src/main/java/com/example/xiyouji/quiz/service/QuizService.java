@@ -12,20 +12,22 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.example.xiyouji.instance.Instance.CHARACTER_QUIZ_NUM;
 import static com.example.xiyouji.instance.Instance.QUIZ_NUM;
 
 @Service
 @RequiredArgsConstructor
 public class QuizService {
 
-    private final QuizSelector quizSelector;
+    private final QuizSelectorFactory quizSelectorFactory;
 
     private final QuizRepository quizRepository;
 
     public List<QuizDto.QuizResponseDto> getQuizzes(QuizDto.QuizRequestDto quizRequestDto) {
         List<Quiz> quizzes = quizRepository.findQuizzesByLanguage(quizRequestDto.getLanguage());
+        QuizSelector quizSelector = quizSelectorFactory.find(quizRequestDto.getSelectorType());
 
-        List<Quiz> randomQuizzes = quizSelector.selectQuiz(quizzes, QUIZ_NUM);
+        List<Quiz> randomQuizzes = quizSelector.selectQuiz(quizzes, CHARACTER_QUIZ_NUM);
 
         return randomQuizzes.stream()
                 .map(Quiz::toQuizResponse)
