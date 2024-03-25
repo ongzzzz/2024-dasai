@@ -27,7 +27,7 @@ public class QuizService {
         List<Quiz> quizzes = quizRepository.findQuizzesByLanguage(quizRequestDto.getLanguage());
         QuizSelector quizSelector = quizSelectorFactory.find(quizRequestDto.getSelectorType());
 
-        List<Quiz> randomQuizzes = quizSelector.selectQuiz(quizzes, CHARACTER_QUIZ_NUM);
+        List<Quiz> randomQuizzes = quizSelector.selectQuiz(quizzes);
 
         return randomQuizzes.stream()
                 .map(Quiz::toQuizResponse)
