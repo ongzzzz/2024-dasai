@@ -33,6 +33,8 @@ public class QuizDto {
 
         private String answerDescription;
 
+        private Long userId;
+
         @Builder
         public QuizResponseDto(String quizContent, String characterType, Object answer, List<String> options, String answerDescription) {
             this.quizContent = quizContent;

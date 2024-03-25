@@ -33,4 +33,12 @@ public class QuizService {
                 .map(Quiz::toQuizResponse)
                 .toList();
     }
+
+    public List<QuizDto.QuizResponseDto> getQuizzesWithUserId(QuizDto.QuizRequestDto quizRequestDto, Long userId) {
+        List<QuizDto.QuizResponseDto> quizResponseDtos = getQuizzes(quizRequestDto);
+
+        quizResponseDtos.forEach(response -> response.setUserId(userId));
+
+        return quizResponseDtos;
+    }
 }
