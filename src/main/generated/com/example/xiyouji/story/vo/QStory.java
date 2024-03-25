@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -25,7 +26,9 @@ public class QStory extends EntityPathBase<Story> {
 
     public final EnumPath<com.example.xiyouji.type.Language> language = createEnum("language", com.example.xiyouji.type.Language.class);
 
-    public final StringPath storyContent = createString("storyContent");
+    public final ListPath<StoryContent, QStoryContent> storyContent = this.<StoryContent, QStoryContent>createList("storyContent", StoryContent.class, QStoryContent.class, PathInits.DIRECT2);
+
+    public final ListPath<StoryImage, QStoryImage> storyImages = this.<StoryImage, QStoryImage>createList("storyImages", StoryImage.class, QStoryImage.class, PathInits.DIRECT2);
 
     public final StringPath storyTitle = createString("storyTitle");
 
