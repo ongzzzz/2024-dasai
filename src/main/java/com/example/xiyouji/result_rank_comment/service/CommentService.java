@@ -29,6 +29,7 @@ public class CommentService {
     }
 
     // 댓글 저장
+    @Transactional
     public void saveComment(Long userId, String content){
 
         if(commentRepository.existsByMemberId(userId)){
