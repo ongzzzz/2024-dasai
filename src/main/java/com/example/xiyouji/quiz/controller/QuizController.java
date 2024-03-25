@@ -23,7 +23,7 @@ public class QuizController {
     public ResponseEntity<List<QuizDto.QuizResponseDto>> getQuizzes(@PathVariable String language) {
         QuizDto.QuizRequestDto quizRequestDto = QuizDto.QuizRequestDto.builder()
                 .language(Language.fromString(language))
-                .selectorType("random")
+                .selectorType("sameNum")
                 .build();
 
         return ResponseEntity.ok(quizService.getQuizzes(quizRequestDto));

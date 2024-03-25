@@ -25,15 +25,21 @@ public class QuizDto {
     public static class QuizResponseDto {
         private String quizContent;
 
-        private List<String> characterType;
+        private String characterType;
 
-        private Object result;
+        private Object answer;
+
+        private List<String> options;
+
+        private String answerDescription;
 
         @Builder
-        public QuizResponseDto(String quizContent, List<String> characterType, Object result) {
+        public QuizResponseDto(String quizContent, String characterType, Object answer, List<String> options, String answerDescription) {
             this.quizContent = quizContent;
             this.characterType = characterType;
-            this.result = result;
+            this.answer = answer;
+            this.options = options;
+            this.answerDescription = answerDescription;
         }
     }
 }

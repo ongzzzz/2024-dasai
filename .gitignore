@@ -38,4 +38,6 @@ out/
 *.yml
 *.properties
 *.yaml
+application.yml
+application-test.yml
 

@@ -21,4 +21,9 @@ public class RandomQuizSelector implements QuizSelector {
                 .collect(Collectors.toList());
 
     }
+
+    @Override
+    public String getType() {
+        return "random";
+    }
 }
