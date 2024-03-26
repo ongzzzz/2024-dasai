@@ -8,6 +8,7 @@ import com.example.xiyouji.result_rank_comment.dto.RankingDto;
 import com.example.xiyouji.result_rank_comment.dto.UserRankingResponse;
 import com.example.xiyouji.type.Characters;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ZSetOperations;
 import org.springframework.stereotype.Service;
@@ -26,11 +27,14 @@ public class RankingQuizService {
     private final MemberRepository memberRepository;
     private final RedisTemplate<String, RankingDto> redisTemplate;
     private final static String RANKING = "ranking";
+    private final static String USER_RANKING = "userRanking";
 
 
     @Transactional
-    public UserRankingResponse saveUserRankingAndIsUserInTopTen(Long userId, List<String> characters){
+    public UserRankingResponse saveUserRankingAndIsUserInTopFive(Long userId, List<String> characters){
         ZSetOperations<String, RankingDto> zSetOperations = redisTemplate.opsForZSet();
+        // 랭킹 정보를 레디스에 저장 & 회원 정보 HashSet에 따로 저장(수정 시 순위 찾기 할 때 필요)
+        HashOperations<String, Long, RankingDto> hashOperations = redisTemplate.opsForHash();
 
         // Character 타입으로 변환
         List<String> charactersFormat = characters.stream()
@@ -43,23 +47,23 @@ public class RankingQuizService {
                 .orElseThrow(() -> new RestApiException(UserErrorCode.USER_NOT_FOUND));
         RankingDto rankingDto = RankingDto.of(userId,charactersFormat.size(), member.getNickName(),maxCorrectCharacters);
 
-        // 랭킹 정보를 레디스에 저장
-        saveRanking(zSetOperations, rankingDto, charactersFormat.size());
+
+        saveRanking(zSetOperations,hashOperations, rankingDto, charactersFormat.size());
 
         Long userRank = zSetOperations.reverseRank(RANKING, rankingDto);
         if(userRank == null){
             throw new RestApiException(UserErrorCode.USER_RANKING_NOT_FOUND);
         }
 
-        // 회원이 10위 안에 있다면 빈 값을 반환, 10위 밖에 있다면 회원 순위를 함께 dto에 담아서 반환
-        return userRank < 10 ?
+        // 회원이 5위 안에 있다면 빈 값을 반환, 10위 밖에 있다면 회원 순위를 함께 dto에 담아서 반환
+        return userRank < 5 ?
                 UserRankingResponse.empty():
                 UserRankingResponse.of(userId, userRank,charactersFormat.size(), member.getNickName(), maxCorrectCharacters);
     }
-    public List<RankingDto> getRankingTopTen(){
+    public List<RankingDto> getRankingTopFive(){
         ZSetOperations<String, RankingDto> zSetOperations = redisTemplate.opsForZSet();
-        // 가장 많은 답을 맞은 계정 부터 10위까지 추출
-        Set<RankingDto> rankingDtos = zSetOperations.reverseRange(RANKING, 0, 9);
+        // 가장 많은 답을 맞은 계정 부터 5위까지 추출
+        Set<RankingDto> rankingDtos = zSetOperations.reverseRange(RANKING, 0, 4);
         return new ArrayList<>(Objects.requireNonNull(rankingDtos));
     }
 
@@ -91,7 +95,13 @@ public class RankingQuizService {
     }
 
 
-    private static void saveRanking(ZSetOperations<String, RankingDto> zSetOperations, RankingDto rankingDto, Integer score) {
-       zSetOperations.add(RANKING, rankingDto, score);
+    private static void saveRanking(ZSetOperations<String, RankingDto> zSetOperations, HashOperations<String, Long, RankingDto> hashOperations,
+                                    RankingDto rankingDto, Integer score) {
+        RankingDto userRankingDto = hashOperations.get(USER_RANKING, rankingDto.userId());
+        if(userRankingDto != null){
+            zSetOperations.remove(RANKING, userRankingDto);
+        }
+        hashOperations.put(USER_RANKING, rankingDto.userId(), rankingDto);
+        zSetOperations.add(RANKING, rankingDto, score);
     }
 }

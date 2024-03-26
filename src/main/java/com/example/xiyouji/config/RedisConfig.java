@@ -1,4 +1,4 @@
-package com.example.xiyouji.result_rank_comment.config;
+package com.example.xiyouji.config;
 
 import com.example.xiyouji.result_rank_comment.dto.RankingDto;
 import org.springframework.beans.factory.annotation.Value;
@@ -41,6 +41,8 @@ public class RedisConfig {
         redisTemplate.setConnectionFactory(redisConnectionFactory());
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setValueSerializer(new Jackson2JsonRedisSerializer<>(RankingDto.class));
+        redisTemplate.setHashKeySerializer(new Jackson2JsonRedisSerializer<>(Long.class));
+        redisTemplate.setHashValueSerializer(new Jackson2JsonRedisSerializer<>(RankingDto.class));
         return redisTemplate;
     }
 }

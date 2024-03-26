@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface QuizSelector {
 
-    List<Quiz> selectQuiz(List<Quiz> quizzes, Integer num);
+    List<Quiz> selectQuiz(List<Quiz> quizzes);
+
+    String getType();
 
 }
