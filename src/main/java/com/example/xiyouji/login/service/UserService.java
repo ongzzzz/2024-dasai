@@ -1,4 +1,4 @@
-package com.example.xiyouji.login;
+package com.example.xiyouji.login.service;
 
 public interface UserService {
 

@@ -4,7 +4,7 @@ import com.example.xiyouji.exception.RestApiException;
 import com.example.xiyouji.exception.impl.EnumErrorCode;
 
 public enum Characters {
-    손오공("손오공", "孙悟空"),
+    손오공("sunwukong", "孙悟空"),
     삼장법사("삼장법사", "t"),
     사오정("사오정", "s"),
     저팔계("저팔계", "d"),
