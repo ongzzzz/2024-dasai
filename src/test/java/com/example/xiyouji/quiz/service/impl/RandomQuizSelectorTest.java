@@ -1,5 +1,6 @@
 package com.example.xiyouji.quiz.service.impl;
 
+import com.example.xiyouji.instance.Instance;
 import com.example.xiyouji.quiz.vo.ChoiceQuiz;
 import com.example.xiyouji.quiz.vo.Quiz;
 import com.example.xiyouji.type.Characters;
@@ -31,7 +32,7 @@ class RandomQuizSelectorTest {
         ).toList();
 
         List<Quiz> quizzes = new ArrayList<>(quizz_choice.subList(0, 2));
-        List<Quiz> selectedQuizzes = selector.selectQuiz(quizzes, 3);
+        List<Quiz> selectedQuizzes = selector.selectQuiz(quizzes);
 
         assertEquals(2, selectedQuizzes.size(), "Should return exactly 2 quizzes.");
     }
@@ -48,7 +49,7 @@ class RandomQuizSelectorTest {
 
         List<Quiz> quizzes = new ArrayList<>(quizz_choice.subList(0, 2));
 
-        List<Quiz> selectedQuizzes = selector.selectQuiz(quizzes, 5);
+        List<Quiz> selectedQuizzes = selector.selectQuiz(quizzes);
 
         assertEquals(quizzes.size(), selectedQuizzes.size(), "Should return all available quizzes.");
     }
@@ -66,9 +67,9 @@ class RandomQuizSelectorTest {
         List<Quiz> quizzes = new ArrayList<>(quizz_choice.subList(0, 17));
 
         boolean isDifferent = false;
-        List<Quiz> firstSelection = selector.selectQuiz(new ArrayList<>(quizzes), quizzes.size());
-        for (int i = 0; i < 10; i++) {
-            List<Quiz> newSelection = selector.selectQuiz(new ArrayList<>(quizzes), quizzes.size());
+        List<Quiz> firstSelection = selector.selectQuiz(new ArrayList<>(quizzes));
+        for (int i = 0; i < Instance.QUIZ_NUM; i++) {
+            List<Quiz> newSelection = selector.selectQuiz(new ArrayList<>(quizzes));
             if (!firstSelection.equals(newSelection)) {
                 isDifferent = true;
                 break;
