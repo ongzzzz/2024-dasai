@@ -3,6 +3,7 @@ package com.example.xiyouji.quiz.service;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.example.xiyouji.instance.Instance;
 import com.example.xiyouji.quiz.dto.QuizDto;
 import com.example.xiyouji.quiz.respository.QuizRepository;
 import com.example.xiyouji.quiz.service.impl.RandomQuizSelector;
@@ -46,6 +47,7 @@ public class QuizServiceTest {
         // 테스트 데이터 준비
         QuizDto.QuizRequestDto quizRequestDto = QuizDto.QuizRequestDto.builder()
                 .language(Language.KR)
+                .selectorType("random")
                 .build();
 
         List<? extends Quiz> makeQuiz = IntStream.range(0, 20).mapToObj(
@@ -56,7 +58,7 @@ public class QuizServiceTest {
                         .build()
         ).toList();
 
-        List<Quiz> quizzes = new ArrayList<>(makeQuiz.subList(0, 10));
+        List<Quiz> quizzes = new ArrayList<>(makeQuiz.subList(0, Instance.QUIZ_NUM));
 
         when(quizRepository.findQuizzesByLanguage(Language.KR)).thenReturn(quizzes);
 
@@ -64,7 +66,36 @@ public class QuizServiceTest {
         List<QuizDto.QuizResponseDto> result = quizService.getQuizzes(quizRequestDto);
 
         // 검증
-        assertEquals(10, result.size()); // 예상되는 결과 크기 검증
+        assertEquals(Instance.QUIZ_NUM, result.size()); // 예상되는 결과 크기 검증
+        verify(quizRepository).findQuizzesByLanguage(Language.KR);
+    }
+
+    @Test
+    @Transactional
+    public void whenKRQuizRequest_onlyResponseKRQuiz() {
+        // 테스트 데이터 준비
+        QuizDto.QuizRequestDto quizRequestDto = QuizDto.QuizRequestDto.builder()
+                .language(Language.KR)
+                .selectorType("random")
+                .build();
+
+        List<? extends Quiz> quiz_cn = IntStream.range(0, 7).mapToObj(
+                i -> ChoiceQuiz.builder()
+                        .language(Language.KR)
+                        .quizContent("内容 " + i)
+                        .characterType(List.of(Characters.사오정))
+                        .build()
+        ).toList();
+
+        List<Quiz> quizzes = new ArrayList<>(quiz_cn.subList(0, 7));
+
+        when(quizRepository.findQuizzesByLanguage(Language.KR)).thenReturn(quizzes);
+
+        // 테스트 실행
+        List<QuizDto.QuizResponseDto> result = quizService.getQuizzes(quizRequestDto);
+
+        // 검증
+        assertEquals(7, result.size()); // 예상되는 결과 크기 검증
         verify(quizRepository).findQuizzesByLanguage(Language.KR);
     }
 
@@ -74,6 +105,7 @@ public class QuizServiceTest {
         // 테스트 데이터 준비
         QuizDto.QuizRequestDto quizRequestDto = QuizDto.QuizRequestDto.builder()
                 .language(Language.CN)
+                .selectorType("random")
                 .build();
 
         List<? extends Quiz> quiz_cn = IntStream.range(0, 7).mapToObj(

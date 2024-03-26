@@ -39,6 +39,17 @@ public class Story {
     private Language language;
 
 
+    @Builder
+    public Story(Long id, Characters characters, String storyTitle, List<StoryContent> storyContent, List<StoryImage> storyImages, Language language) {
+        this.id = id;
+        this.characters = characters;
+        this.storyTitle = storyTitle;
+        this.storyContent = storyContent;
+        this.storyImages = storyImages;
+        this.language = language;
+    }
+
+
     public StoryDto.StoryResponseDto toStoryResponseDto() {
         return StoryDto.StoryResponseDto.builder()
                 .storyContents(storyContent.stream()
@@ -56,13 +67,5 @@ public class Story {
                 .build();
     }
 
-    @Builder
-    public Story(Long id, Characters characters, String storyTitle, List<StoryContent> storyContent, List<StoryImage> storyImages, Language language) {
-        this.id = id;
-        this.characters = characters;
-        this.storyTitle = storyTitle;
-        this.storyContent = storyContent;
-        this.storyImages = storyImages;
-        this.language = language;
-    }
+
 }

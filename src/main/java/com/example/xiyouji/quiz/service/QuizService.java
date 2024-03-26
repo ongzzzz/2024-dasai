@@ -27,10 +27,18 @@ public class QuizService {
         List<Quiz> quizzes = quizRepository.findQuizzesByLanguage(quizRequestDto.getLanguage());
         QuizSelector quizSelector = quizSelectorFactory.find(quizRequestDto.getSelectorType());
 
-        List<Quiz> randomQuizzes = quizSelector.selectQuiz(quizzes, CHARACTER_QUIZ_NUM);
+        List<Quiz> randomQuizzes = quizSelector.selectQuiz(quizzes);
 
         return randomQuizzes.stream()
                 .map(Quiz::toQuizResponse)
                 .toList();
+    }
+
+    public List<QuizDto.QuizResponseDto> getQuizzesWithUserId(QuizDto.QuizRequestDto quizRequestDto, Long userId) {
+        List<QuizDto.QuizResponseDto> quizResponseDtos = getQuizzes(quizRequestDto);
+
+        quizResponseDtos.forEach(response -> response.setUserId(userId));
+
+        return quizResponseDtos;
     }
 }

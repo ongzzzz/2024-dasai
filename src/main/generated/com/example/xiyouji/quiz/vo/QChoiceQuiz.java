@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -21,7 +22,10 @@ public class QChoiceQuiz extends EntityPathBase<ChoiceQuiz> {
 
     public final QQuiz _super = new QQuiz(this);
 
-    public final NumberPath<Integer> answer = createNumber("answer", Integer.class);
+    //inherited
+    public final StringPath answerDescription = _super.answerDescription;
+
+    public final NumberPath<Integer> answerNum = createNumber("answerNum", Integer.class);
 
     //inherited
     public final ListPath<com.example.xiyouji.type.Characters, EnumPath<com.example.xiyouji.type.Characters>> characterType = _super.characterType;
@@ -31,6 +35,8 @@ public class QChoiceQuiz extends EntityPathBase<ChoiceQuiz> {
 
     //inherited
     public final EnumPath<com.example.xiyouji.type.Language> language = _super.language;
+
+    public final ListPath<String, StringPath> options = this.<String, StringPath>createList("options", String.class, StringPath.class, PathInits.DIRECT2);
 
     //inherited
     public final StringPath quizContent = _super.quizContent;

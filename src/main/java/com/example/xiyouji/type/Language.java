@@ -1,5 +1,8 @@
 package com.example.xiyouji.type;
 
+import com.example.xiyouji.exception.RestApiException;
+import com.example.xiyouji.exception.impl.EnumErrorCode;
+
 public enum Language {
     KR("kr", "KR", "kor"),
     CN("cn","CN", "zh"),
@@ -39,7 +42,7 @@ public enum Language {
                 return language;
             }
         }
-        throw new IllegalArgumentException("No constant with value " + value + " found");
+        throw new RestApiException(EnumErrorCode.ENUM_NOT_FOUNDED);
         // 또는 null 반환을 원하면 return null; 사용
     }
 }

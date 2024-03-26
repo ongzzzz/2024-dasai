@@ -20,6 +20,8 @@ public class QQuiz extends EntityPathBase<Quiz> {
 
     public static final QQuiz quiz = new QQuiz("quiz");
 
+    public final StringPath answerDescription = createString("answerDescription");
+
     public final ListPath<com.example.xiyouji.type.Characters, EnumPath<com.example.xiyouji.type.Characters>> characterType = this.<com.example.xiyouji.type.Characters, EnumPath<com.example.xiyouji.type.Characters>>createList("characterType", com.example.xiyouji.type.Characters.class, EnumPath.class, PathInits.DIRECT2);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);

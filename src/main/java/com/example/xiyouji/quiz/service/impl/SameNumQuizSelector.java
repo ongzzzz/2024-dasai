@@ -1,5 +1,6 @@
 package com.example.xiyouji.quiz.service.impl;
 
+import com.example.xiyouji.instance.Instance;
 import com.example.xiyouji.quiz.service.QuizSelector;
 import com.example.xiyouji.quiz.vo.Quiz;
 import com.example.xiyouji.type.Characters;
@@ -15,31 +16,32 @@ import java.util.stream.Collectors;
 public class SameNumQuizSelector implements QuizSelector {
 
     @Override
-    public List<Quiz> selectQuiz(List<Quiz> quizzes, Integer num) {
+    public String getType() {
+        return "sameNum";
+    }
+
+    @Override
+    public List<Quiz> selectQuiz(List<Quiz> quizzes) {
         List<Characters> characters = List.of(Characters.values());
 
 
         return shuffle(characters.stream()
                 .flatMap(type -> shuffle(getQuizzesByCharacterType(quizzes, type)).stream()
-                        .limit(num))
+                        .limit(Instance.CHARACTER_QUIZ_NUM))
                 .toList());
 
     }
 
-    @Override
-    public String getType() {
-        return "sameNum";
-    }
-
     private List<Quiz> getQuizzesByCharacterType(List<Quiz> quizzes, Characters charactersType) {
         return quizzes.stream()
-                .filter(quiz -> quiz.getCharacterType().equals(charactersType))
+                .filter(quiz -> quiz.getCharacterType().get(0).equals(charactersType))
                 .toList();
     }
 
     private List<Quiz> shuffle(List<Quiz> quizzes) {
-        Collections.shuffle(quizzes);
+        List<Quiz> arrayList = new ArrayList<>(quizzes);
+        Collections.shuffle(arrayList);
 
-        return quizzes;
+        return arrayList;
     }
 }

@@ -20,8 +20,7 @@ public class StoryImage {
     private String filename;
 
     @Builder
-    public StoryImage(Long id, Story story, String filename) {
-        this.id = id;
+    public StoryImage(Story story, String filename) {
         this.story = story;
         this.filename = filename;
     }

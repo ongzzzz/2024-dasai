@@ -18,11 +18,11 @@ public class StoryContent {
     @ManyToOne
     private Story story;
 
+    @Column(nullable = false)
     private String content;
 
     @Builder
-    public StoryContent(Long id, Story story, String content) {
-        this.id = id;
+    public StoryContent(Story story, String content) {
         this.story = story;
         this.content = content;
     }
