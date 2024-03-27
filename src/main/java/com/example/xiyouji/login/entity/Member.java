@@ -17,15 +17,9 @@ public class Member extends BaseTime {
     public Long id;
     public String nickName;
 
-    @OneToOne(mappedBy = "member")
-    private Comment comment;
     @Builder
     public Member(String nickName) {
         this.nickName = nickName;
-    }
-
-    public void addComment(Comment comment){
-        this.comment = comment;
     }
 
 }
