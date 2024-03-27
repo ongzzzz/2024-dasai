@@ -1,11 +1,14 @@
 package com.example.xiyouji.result_rank_comment.controller.api;
 
+import com.example.xiyouji.result_rank_comment.dto.CommentRequest;
 import com.example.xiyouji.result_rank_comment.dto.CommentResponse;
 import com.example.xiyouji.result_rank_comment.dto.UserRankingResponse;
 import com.example.xiyouji.result_rank_comment.service.CommentService;
 import com.example.xiyouji.result_rank_comment.service.RankingQuizService;
+import com.example.xiyouji.translate.service.impl.BaiduTranslator;
 import com.example.xiyouji.type.Characters;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.java.accessibility.util.Translator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +37,8 @@ class RankingQuizCommentRestControllerTest {
     @MockBean
     private CommentService commentService;
 
+    @MockBean
+    private BaiduTranslator translator;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -69,7 +74,7 @@ class RankingQuizCommentRestControllerTest {
     void saveCommentAndGetCommentsTest() throws Exception
     {
         //given
-        String comment = "content1";
+        CommentRequest commentRequest = CommentRequest.of("content1");
         List<CommentResponse> commentResponses = createComments();
         PageRequest pageRequest = PageRequest.of(0, 5, Sort.by("createdDate").descending());
         willDoNothing().given(commentService).saveComment(any(), any());
@@ -77,7 +82,7 @@ class RankingQuizCommentRestControllerTest {
         //when $ then
         mvc.perform(post("/comment/" + 1L)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(comment))
+                .content(objectMapper.writeValueAsString(commentRequest))
         )
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -109,6 +114,24 @@ class RankingQuizCommentRestControllerTest {
 
 
         then(commentService).should().getComments(any());
+    }
+
+    @Test
+    @DisplayName("댓글 번역 테스트 - 중국어 -> 한국어")
+    void commentTranslateTest() throws Exception
+    {
+        //given
+        CommentRequest commentRequest = CommentRequest.of("你好");
+        given(translator.translate(any(), any(), any())).willReturn("안녕하세요");
+        //when & then
+        mvc.perform(get("/comment/translate/" + "cn")
+                .content(objectMapper.writeValueAsString(commentRequest))
+                .contentType(MediaType.APPLICATION_JSON)
+        ).andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(jsonPath("$.content").value("안녕하세요"));
+
+        then(translator).should().translate(any(), any(), any());
     }
 
 

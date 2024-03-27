@@ -4,6 +4,9 @@ import com.example.xiyouji.result_rank_comment.dto.*;
 import com.example.xiyouji.result_rank_comment.service.CommentService;
 import com.example.xiyouji.result_rank_comment.dto.CommentResponse;
 import com.example.xiyouji.result_rank_comment.service.RankingQuizService;
+import com.example.xiyouji.translate.service.impl.BaiduTranslator;
+import com.example.xiyouji.type.Language;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
@@ -22,6 +24,7 @@ public class RankingQuizCommentRestController {
 
     private final RankingQuizService rankingQuizService;
     private final CommentService commentService;
+    private final BaiduTranslator translator;
 
 
     @PostMapping("/quiz/result/{userId}")
@@ -42,9 +45,9 @@ public class RankingQuizCommentRestController {
     public ResponseEntity<Page<CommentResponse>> saveComment(
             @PathVariable(name = "userId")
             Long userId,
-            @RequestBody String comment
+            @RequestBody CommentRequest commentRequest
     ){
-        commentService.saveComment(userId, comment);
+        commentService.saveComment(userId, commentRequest.comment());
         Page<CommentResponse> comments =
                 commentService.getComments(
                         PageRequest.of(0, 5, Sort.by("createdDate").descending())
@@ -57,6 +60,20 @@ public class RankingQuizCommentRestController {
             @PageableDefault(sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable)
     {
         return ResponseEntity.ok(commentService.getComments(pageable));
+    }
+
+    @GetMapping("/comment/translate/{language}")
+    public ResponseEntity<TranslateResponse> getCommentTranslate(
+            @PathVariable(name = "language") String language,
+            @RequestBody CommentRequest commentRequest
+    ) throws JsonProcessingException {
+        Language languageType = Language.fromString(language);
+
+        String translationResult = languageType.getValue_baidu().equals("kor") ?
+                translator.translate(commentRequest.comment(), Language.CN, Language.KR) :
+                translator.translate(commentRequest.comment(), Language.KR, Language.CN);
+
+        return ResponseEntity.ok(TranslateResponse.of(translationResult));
     }
 }
 
