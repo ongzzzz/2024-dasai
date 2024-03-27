@@ -54,7 +54,7 @@ public class QuizServiceTest {
                 i -> ChoiceQuiz.builder()
                         .language(Language.KR)
                         .quizContent("내용 " + i)
-                        .characterType(List.of(Characters.사오정))
+                        .characterType(Characters.사오정)
                         .build()
         ).toList();
 
@@ -83,7 +83,7 @@ public class QuizServiceTest {
                 i -> ChoiceQuiz.builder()
                         .language(Language.KR)
                         .quizContent("内容 " + i)
-                        .characterType(List.of(Characters.사오정))
+                        .characterType(Characters.사오정)
                         .build()
         ).toList();
 
@@ -112,7 +112,7 @@ public class QuizServiceTest {
                 i -> ChoiceQuiz.builder()
                         .language(Language.CN)
                         .quizContent("内容 " + i)
-                        .characterType(List.of(Characters.사오정))
+                        .characterType(Characters.사오정)
                         .build()
         ).toList();
 

@@ -25,7 +25,7 @@ public class QuizController {
 
     private final UserService userService;
 
-    //private final QuizRepository quizRepository;
+    private final QuizRepository quizRepository;
 
     @GetMapping("/quiz/start/{nickName}/{language}")
     public ResponseEntity<List<QuizDto.QuizResponseDto>> getQuizzes(
@@ -42,13 +42,13 @@ public class QuizController {
         return ResponseEntity.ok(quizService.getQuizzesWithUserId(quizRequestDto, userId));
     }
 
-    /*@GetMapping("/quiz/make")
+    @GetMapping("/quiz/make")
     public void makeQuizzes() {
 
         List<? extends Quiz> quizzes = IntStream.range(0, 12)
                 .mapToObj(i -> ChoiceQuiz.builder()
                         .quizContent("quiz" + i)
-                        .options(List.of("보기"))
+                        .options(List.of("보기1","보기2","보기3","보기4"))
                         .answerNum(3)
                         .characterType(Characters.사오정)
                         .answerDescription("정답 설명")
@@ -57,6 +57,6 @@ public class QuizController {
                 .toList();
 
         quizRepository.saveAll(quizzes);
-    }*/
+    }
 
 }

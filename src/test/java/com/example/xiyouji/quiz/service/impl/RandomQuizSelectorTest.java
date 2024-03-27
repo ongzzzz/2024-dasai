@@ -27,7 +27,7 @@ class RandomQuizSelectorTest {
                 i ->  ChoiceQuiz.builder()
                         .language(Language.CN)
                         .quizContent("内容 " + i)
-                        .characterType(List.of(Characters.사오정))
+                        .characterType(Characters.사오정)
                         .build()
         ).toList();
 
@@ -43,7 +43,7 @@ class RandomQuizSelectorTest {
                 i ->  ChoiceQuiz.builder()
                         .language(Language.CN)
                         .quizContent("内容 " + i)
-                        .characterType(List.of(Characters.사오정))
+                        .characterType(Characters.사오정)
                         .build()
         ).toList();
 
@@ -60,7 +60,7 @@ class RandomQuizSelectorTest {
                 i ->  ChoiceQuiz.builder()
                         .language(Language.CN)
                         .quizContent("内容 " + i)
-                        .characterType(List.of(Characters.사오정))
+                        .characterType(Characters.사오정)
                         .build()
         ).toList();
 
