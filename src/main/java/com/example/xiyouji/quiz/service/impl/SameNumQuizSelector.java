@@ -34,7 +34,7 @@ public class SameNumQuizSelector implements QuizSelector {
 
     private List<Quiz> getQuizzesByCharacterType(List<Quiz> quizzes, Characters charactersType) {
         return quizzes.stream()
-                .filter(quiz -> quiz.getCharacterType().get(0).equals(charactersType))
+                .filter(quiz -> quiz.getCharacterType().equals(charactersType))
                 .toList();
     }
 

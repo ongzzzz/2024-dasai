@@ -7,7 +7,6 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
-import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -22,7 +21,7 @@ public class QQuiz extends EntityPathBase<Quiz> {
 
     public final StringPath answerDescription = createString("answerDescription");
 
-    public final ListPath<com.example.xiyouji.type.Characters, EnumPath<com.example.xiyouji.type.Characters>> characterType = this.<com.example.xiyouji.type.Characters, EnumPath<com.example.xiyouji.type.Characters>>createList("characterType", com.example.xiyouji.type.Characters.class, EnumPath.class, PathInits.DIRECT2);
+    public final EnumPath<com.example.xiyouji.type.Characters> characterType = createEnum("characterType", com.example.xiyouji.type.Characters.class);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
