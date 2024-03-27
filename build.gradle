@@ -11,6 +11,15 @@ java {
     sourceCompatibility = '17'
 }
 
+jar {
+    manifest {
+        attributes(
+                'Implementation-Title': project.name,
+                'Implementation-Version': version
+        )
+    }
+}
+
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
@@ -52,16 +61,9 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
-def querydslDir = "src/main/generated"
 
-sourceSets {
-    main.java.srcDirs += [ querydslDir ]
-}
+def generatedDir = 'src/main/generated'
 
-tasks.withType(JavaCompile) {
-    options.getGeneratedSourceOutputDirectory().set(file(querydslDir))
-}
-
-clean.doLast {
-    file(querydslDir).deleteDir()
+clean {
+    delete file (generatedDir)
 }

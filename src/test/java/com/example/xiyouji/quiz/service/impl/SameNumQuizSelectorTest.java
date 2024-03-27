@@ -30,7 +30,7 @@ class SameNumQuizSelectorTest {
     @Test
     void lessThanCharacterTypeQuizNum_responseAllQuiz() {
         List<Quiz> quizzes = List.of(ChoiceQuiz.builder()
-                .characterType(List.of(Characters.손오공))
+                .characterType(Characters.손오공)
                 .quizContent("손오공의 관한 문제")
                 .language(Language.KR)
                 .answerNum(3)
@@ -44,7 +44,7 @@ class SameNumQuizSelectorTest {
     void getQuiz_eachCharacterQuizzesHaveCharacter_Quiz_Num() {
         List<? extends Quiz> character1 = new ArrayList<>(IntStream.range(0, 10)
                 .mapToObj(i -> ChoiceQuiz.builder()
-                        .characterType(List.of(Characters.손오공))
+                        .characterType(Characters.손오공)
                         .quizContent("손오공" + i)
                         .answerNum(3)
                         .language(Language.KR)
@@ -53,7 +53,7 @@ class SameNumQuizSelectorTest {
 
         List<? extends Quiz> character2 = new ArrayList<>(IntStream.range(0, 10)
                 .mapToObj(i -> ChoiceQuiz.builder()
-                        .characterType(List.of(Characters.사오정))
+                        .characterType(Characters.사오정)
                         .quizContent("사오정" + i)
                         .answerNum(3)
                         .language(Language.KR)
@@ -62,7 +62,7 @@ class SameNumQuizSelectorTest {
 
         List<? extends Quiz> character3 = new ArrayList<>(IntStream.range(0, 10)
                 .mapToObj(i -> ChoiceQuiz.builder()
-                        .characterType(List.of(Characters.저팔계))
+                        .characterType(Characters.저팔계)
                         .quizContent("저팔계" + i)
                         .answerNum(3)
                         .language(Language.KR)
@@ -72,7 +72,7 @@ class SameNumQuizSelectorTest {
 
         List<? extends Quiz> character4 = new ArrayList<>(IntStream.range(0, 10)
                 .mapToObj(i -> ChoiceQuiz.builder()
-                        .characterType(List.of(Characters.삼장법사))
+                        .characterType(Characters.삼장법사)
                         .quizContent("삼장법사" + i)
                         .answerNum(3)
                         .language(Language.KR)
@@ -89,11 +89,11 @@ class SameNumQuizSelectorTest {
         List<Quiz> result = selector.selectQuiz(combinedList);
         assertEquals(Instance.CHARACTER_QUIZ_NUM * 4, result.size());
         assertEquals(Instance.CHARACTER_QUIZ_NUM, result.stream()
-                .filter(quiz -> quiz.getCharacterType().get(0).equals(Characters.손오공))
+                .filter(quiz -> quiz.getCharacterType().equals(Characters.손오공))
                 .toList()
                 .size());
         assertEquals(Instance.CHARACTER_QUIZ_NUM, result.stream()
-                .filter(quiz -> quiz.getCharacterType().get(0).equals(Characters.삼장법사))
+                .filter(quiz -> quiz.getCharacterType().equals(Characters.삼장법사))
                 .toList()
                 .size());
     }
