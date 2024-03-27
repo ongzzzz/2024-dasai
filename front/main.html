@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>메인화면</title>
+  <link rel="stylesheet" href="main.css">
+  <script src="https://kit.fontawesome.com/32c80bd758.js" crossorigin="anonymous"></script>
+  
+  <script>
+    (function(d) {
+      var config = {
+        kitId: 'wts0fmj',
+        scriptTimeout: 3000,
+        async: true
+      },
+      h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/'+config.kitId+'.js';tk.async=true;tk.onload=tk.onreadystatechange=function(){a=this.readyState;if(f||a&&a!="complete"&&a!="loaded")return;f=true;clearTimeout(t);try{Typekit.load(config)}catch(e){}};s.parentNode.insertBefore(tk,s)
+    })(document);
+  </script>
+</head>
+<body>
+
+  <div class="container">
+    <div class="main">
+      <header>
+        <ul class="nav">
+          <li><a href="#"><i class="fa-solid fa-house"></i> HOME</a></li>
+          <li><a href="#">내용</a></li>
+          <li><a href="#">퀴즈</a></li>
+        </ul>
+        <span class="btn btn-1">
+          <input type="checkbox" name="" id="swich">
+          <label for="swich"></label>
+        </span>
+      </header>
+      <section>
+        <div class="character_select">
+          <img src="/image/손오공.png" alt="Top Character" class="character top">
+          <img src="/image/손오공.png" alt="Left Character" class="character left">
+          <img src="/image/손오공.png" alt="Right Character" class="character right">
+          <img src="/image/손오공.png" alt="Bottom Character" class="character bottom">
+        </div>
+        <div class="gbtn">
+          <a href="story.html"><button class="go_btn" data-ko="보러가기" data-zh="去看">보러가기</button></a>
+        </div>
+        <div class="popup">
+          <div id="character_introduce">
+            <div class="introduce one"></div>
+            <div class="introduce two"></div>
+            <div class="introduce three"></div>
+            <div class="introduce four"></div>
+            <div class="introduce five"></div>
+            <div class="introduce six"></div>
+          </div>
+          <div class="name">
+            <div class="character_name"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  
+  <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+  <script src="main.js"></script>
+
+</body>
+</html>
