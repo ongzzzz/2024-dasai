@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>문제화면</title>
   <link rel="stylesheet" href="test.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://kit.fontawesome.com/32c80bd758.js" crossorigin="anonymous"></script>
   <script>
     (function(d) {
@@ -59,3 +60,68 @@
   
 </body>
 </html>
+
+<script>
+  $(document).ready(function() {
+    let quizzes = []; // 전체 퀴즈 데이터
+    let currentIndex = 0; // 현재 퀴즈의 인덱스
+
+    // 데이터 로드
+    function loadQuizzes() {
+      $.ajax({
+        url: 'http://localhost:8080/quiz/start/ddd/kr', // 백엔드 URL로 변경해주세요.
+        type: 'GET',
+        dataType: 'json', // 응답 데이터 타입
+        success: function(data) {
+          quizzes = data; // 전체 퀴즈 데이터 저장
+          renderQuiz(currentIndex); // 첫 번째 퀴즈 렌더링
+        },
+        error: function(error) {
+          console.error('Error fetching data:', error);
+        }
+      });
+    }
+
+    // 현재 인덱스의 퀴즈 렌더링
+    function renderQuiz(index) {
+      const quiz = quizzes[index]; // 현재 퀴즈 데이터
+      const $container = $('.question_container');
+      $container.empty(); // 기존 내용을 비웁니다.
+
+      const questionDiv = `
+      <div>
+        <h3 class="number">Q${index + 1}</h3>
+        <h3 class="question">${quiz.quizContent}</h3>
+      </div>
+    `;
+
+      const answerDiv = $('<div class="answer"></div>');
+      $.each(quiz.options, function(i, option) {
+        const optionHtml = `
+        <div>
+          <input type="radio" name="answer_${index}" id="radio${index}_${i}">
+          <label for="radio${index}_${i}" class="radio_label">${option}</label>
+        </div>
+      `;
+        answerDiv.append(optionHtml);
+      });
+
+      $container.append(questionDiv);
+      $container.append(answerDiv);
+
+      // 보기 선택 이벤트 리스너 설정
+      $('input[type=radio][name=answer_' + index + ']').change(function() {
+        currentIndex++; // 다음 퀴즈로 인덱스 증가
+        if (currentIndex < quizzes.length) {
+          renderQuiz(currentIndex); // 다음 퀴즈 렌더링
+        } else {
+          alert('퀴즈가 끝났습니다!'); // 모든 퀴즈 완료 처리
+        }
+      });
+    }
+
+    // 페이지 로드 시 퀴즈 데이터 로드
+    loadQuizzes();
+  });
+
+</script>

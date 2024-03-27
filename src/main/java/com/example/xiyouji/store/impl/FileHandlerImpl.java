@@ -24,7 +24,7 @@ public class FileHandlerImpl implements FileHandler {
     String rootPath = System.getProperty("user.dir");
 
     // 프로젝트 루트 경로에 있는 files 디렉토리
-    private final String fileDir = rootPath + "/front/images";
+    private final String fileDir = rootPath + "/front/images/";
 
     @Override
     public String getFullPath(String filename) { return fileDir + filename; }

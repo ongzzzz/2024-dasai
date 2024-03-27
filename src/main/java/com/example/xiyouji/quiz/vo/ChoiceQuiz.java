@@ -22,7 +22,7 @@ public class ChoiceQuiz extends Quiz {
     private List<String> options; // 문제 보기를 저장하는 필드
 
     @Builder
-    public ChoiceQuiz(Long id, List<Characters> characterType, String quizContent, String answerDescription, Language language, Integer answerNum, List<String> options) {
+    public ChoiceQuiz(Long id, Characters characterType, String quizContent, String answerDescription, Language language, Integer answerNum, List<String> options) {
         super(id, characterType, quizContent, answerDescription, language);
         this.answerNum = answerNum;
         this.options = options;
@@ -35,7 +35,7 @@ public class ChoiceQuiz extends Quiz {
     @Override
     public QuizDto.QuizResponseDto toQuizResponse() {
         return QuizDto.QuizResponseDto.builder()
-                .characterType(getCharacterType().get(0).getValue_kr())
+                .characterType(getCharacterType().getValue_kr())
                 .answer(answerNum)
                 .options(options)
                 .answerDescription(getAnswerDescription())
