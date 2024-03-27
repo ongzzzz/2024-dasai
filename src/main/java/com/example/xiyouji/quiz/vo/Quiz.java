@@ -24,7 +24,7 @@ public abstract class Quiz {
     private Long id;
 
     @Enumerated
-    private List<Characters> characterType;
+    private Characters characterType;
 
     private String quizContent;
 
@@ -33,7 +33,7 @@ public abstract class Quiz {
     private Language language;
 
 
-    public Quiz(Long id, List<Characters> characterType, String quizContent, String answerDescription, Language language) {
+    public Quiz(Long id, Characters characterType, String quizContent, String answerDescription, Language language) {
         this.id = id;
         this.characterType = characterType;
         this.quizContent = quizContent;

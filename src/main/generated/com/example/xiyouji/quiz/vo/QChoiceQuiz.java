@@ -28,7 +28,7 @@ public class QChoiceQuiz extends EntityPathBase<ChoiceQuiz> {
     public final NumberPath<Integer> answerNum = createNumber("answerNum", Integer.class);
 
     //inherited
-    public final ListPath<com.example.xiyouji.type.Characters, EnumPath<com.example.xiyouji.type.Characters>> characterType = _super.characterType;
+    public final EnumPath<com.example.xiyouji.type.Characters> characterType = _super.characterType;
 
     //inherited
     public final NumberPath<Long> id = _super.id;
