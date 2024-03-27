@@ -1,0 +1,87 @@
+body {
+  font-family: "omnigothic", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  background-color: #f3f3f3;
+  color: #000;
+}
+section {
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  position: absolute;
+}
+.number {
+  font-size: 40px;
+}
+.question {
+  font-size: 35px;
+  font-weight: 300;
+}
+.answer {
+  margin-top: 100px;
+}
+.answer div {
+  background-color: #fff;
+  border-radius: 40px;
+  box-shadow: 0 0 10px #00000027;
+  margin-top: 30px;
+}
+.answer input[type=radio] {
+  display: none;
+}
+.answer label {
+  display: block;
+  border-radius: 42px;
+  margin: 0 auto;
+  text-align: center;
+  line-height: 78px;
+  font-size: 25px;
+  font-weight: 300;
+}
+.answer input + .radio_label {
+  border: 2px solid transparent;
+}
+.answer input:hover + .radio_label {
+  border: 2px solid #F86551;
+  color: #F86551;
+  transition: 0.3s;
+}
+/* .answer input:active + .radio_label {
+  transform: scale(0);
+} */
+.answer input:checked + .radio_label {
+  background: #F86551;
+  color: #fff;
+}
+.an {
+  display: none;
+}
+.ox {
+  font-size: 50px;
+  color: #F86551;
+}
+.content {
+  font-size: 30px;
+  font-weight: 300;
+  width: 900px;
+}
+#next_btn {
+  width: 287px;
+  height: 90px;
+  border-radius: 50px;
+  border: none;
+  text-align: center;
+  box-shadow: 0 0 10px #0000002d;
+  font-family: "omnigothic", sans-serif;
+  font-weight: 300;
+  font-size: 20px;
+  margin-top: 70px;
+}
+#next_btn:hover {
+  background-color: #F86551;
+  transition: 0.3s;
+  cursor: pointer;
+  color: #fff;
+}
