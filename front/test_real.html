@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>퀴즈-문제+답안set</title>
   <link rel="stylesheet" href="test_real.css">
+  <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+  <script src="translate.js"></script>
+	<script src="quiz.js"></script>
+  <script src="quiz_nickname.js"></script>
   <script>
     (function(d) {
       var config = {
@@ -22,43 +26,41 @@
     <div class="main">
       <section>
         <div class="question_container">
-          <h3 class="number">Q1</h3>
-          <h3 class="question">손오공은 어디에서 태어났나요?</h3>
+          <h3 class="number"></h3>
+          <h3 class="question"></h3>
         </div>
       
         <div class="answer">
           <div>
-            <input type="radio" name="answer_1" id="radio1">
-            <label for="radio1" class="radio_label">동국 동톈리</label>
+            <input type="radio" name="answer_1" id="radio1"  value="1">
+            <label for="radio1" class="radio_label"></label>
           </div>
           <div>
-            <input type="radio" name="answer_1" id="radio2">
-            <label for="radio2" class="radio_label">서국 서톈리</label>
+            <input type="radio" name="answer_1" id="radio2"  value="2">
+            <label for="radio2" class="radio_label"></label>
           </div>
           <div>
-            <input type="radio" name="answer_1" id="radio3">
-            <label for="radio3" class="radio_label">남국 남톈리</label>
+            <input type="radio" name="answer_1" id="radio3"  value="3">
+            <label for="radio3" class="radio_label"></label>
           </div>
           <div>
-            <input type="radio" name="answer_1" id="radio4">
-            <label for="radio4" class="radio_label">북국 북톈리</label>
+            <input type="radio" name="answer_1" id="radio4"  value="4">
+            <label for="radio4" class="radio_label"></label>
           </div>
         </div>
       </section>
     </div>
     <div class="an">
       <section>
-        <h1 class="ox">O</h1>
+        <h1 class="ox"></h1>
         <div class="content">
-          <p>손오공은 동국에서 태어났어요. <br>그의 출생지는 동국 화산에 위치한 동톈리라는 곳으로 묘사됩니다.</p>
+          <p></p>
         </div>
         <a href="#"><button id="next_btn">다음 문제</button></a>
       </section>
     </div>
   </div>
 
-  <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
-  <script src="test_real.js"></script>
   
 </body>
 </html>
